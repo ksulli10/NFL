@@ -21,7 +21,7 @@
 ####     (If you have fixes for anything or spot specific bugs, LMK!)
 #### e) Have fun, tag me in anything cool you do with it :)
 
-function add_series_success(season) {
+add_series_success <- function(season) {
   
   # create df name based on season input
   # requires existence of "pbp_20XX" named file
@@ -51,10 +51,10 @@ function add_series_success(season) {
       if (pbp_input$yards_gained[r - 1] >= pbp_input$ydstogo[r - 1])
       {
         pbp_input$series_success[pbp_input$game_id == pbp_input$game_id[r - 1]
-                                & pbp_input$series == series] <- 1
+                                 & pbp_input$series == series] <- 1
       } else {
         pbp_input$series_success[pbp_input$game_id == pbp_input$game_id[r - 1]
-                                & pbp_input$series == series] <- NA
+                                 & pbp_input$series == series] <- NA
       }
       series <- 1
       # beginning of 2nd half or overtime
@@ -63,10 +63,10 @@ function add_series_success(season) {
       if (pbp_input$yards_gained[r - lb] >= pbp_input$ydstogo[r - lb])
       {
         pbp_input$series_success[pbp_input$game_id == pbp_input$game_id[r]
-                                & pbp_input$series == series] <- 1
+                                 & pbp_input$series == series] <- 1
       } else {
         pbp_input$series_success[pbp_input$game_id == pbp_input$game_id[r]
-                                & pbp_input$series == series] <- NA
+                                 & pbp_input$series == series] <- NA
       }
       series <- series + 1
       # or drive has changed
@@ -74,7 +74,7 @@ function add_series_success(season) {
       if (pbp_input$yards_gained[r - lb] >= pbp_input$ydstogo[r - lb])
       {
         pbp_input$series_success[pbp_input$game_id == pbp_input$game_id[r]
-                                & pbp_input$series == series] <- 1
+                                 & pbp_input$series == series] <- 1
       }
       series <- series + 1
       # first down or NA down with last play having enough yards or defensive penalty
@@ -89,7 +89,7 @@ function add_series_success(season) {
               TRUE))
       {
         pbp_input$series_success[pbp_input$game_id == pbp_input$game_id[r]
-                                & pbp_input$series == series] <- 1
+                                 & pbp_input$series == series] <- 1
       }
       series <- series + 1
     }
@@ -130,4 +130,43 @@ function add_series_success(season) {
   # make last two NA
   pbp_input$series_success[(nrow(pbp_input) - 1):nrow(pbp_input)] <- NA
   
+  return(pbp_input)
 }
+
+
+
+#
+# add to pbp data frames
+#
+pbp_2019 <- add_series_success(2019)
+pbp_2018 <- add_series_success(2018)
+pbp_2017 <- add_series_success(2017)
+pbp_2016 <- add_series_success(2016)
+pbp_2015 <- add_series_success(2015)
+pbp_2014 <- add_series_success(2014)
+pbp_2013 <- add_series_success(2013)
+pbp_2012 <- add_series_success(2012)
+pbp_2011 <- add_series_success(2011)
+pbp_2010 <- add_series_success(2010)
+pbp_2009 <- add_series_success(2009)
+
+#
+# create overall ryurko PBP data frame
+#
+library(plyr)
+remove(pbp_data_overall)
+pbp_data_overall <-
+  rbind.fill(
+    pbp_2009,
+    pbp_2010,
+    pbp_2011,
+    pbp_2012,
+    pbp_2013,
+    pbp_2014,
+    pbp_2015,
+    pbp_2016,
+    pbp_2017,
+    pbp_2018,
+    pbp_2019
+  )
+detach(package:plyr)

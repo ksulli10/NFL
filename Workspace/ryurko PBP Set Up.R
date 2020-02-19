@@ -15,7 +15,7 @@ pbp_2009 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/ma
 
 # create overall ryurko PBP data frame
 library(plyr)
-pbp_data_ryurko <-
+pbp_data_overall <-
   rbind.fill(
     pbp_2009,
     pbp_2010,
