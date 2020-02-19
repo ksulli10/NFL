@@ -12,21 +12,3 @@ pbp_2012 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/ma
 pbp_2011 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/play_by_play_data/regular_season/reg_pbp_2011.csv")
 pbp_2010 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/play_by_play_data/regular_season/reg_pbp_2010.csv")
 pbp_2009 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/play_by_play_data/regular_season/reg_pbp_2009.csv")
-
-# create overall ryurko PBP data frame
-library(plyr)
-pbp_data_overall <-
-  rbind.fill(
-    pbp_2009,
-    pbp_2010,
-    pbp_2011,
-    pbp_2012,
-    pbp_2013,
-    pbp_2014,
-    pbp_2015,
-    pbp_2016,
-    pbp_2017,
-    pbp_2018,
-    pbp_2019
-  )
-detach(package:plyr)
