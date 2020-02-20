@@ -1,3 +1,6 @@
+# install.packages("devtools")
+# devtools::install_github(repo = "ryurko/nflscrapR")
+
 library(nflscrapR)
 library(dplyr)
 library(ggplot2)
