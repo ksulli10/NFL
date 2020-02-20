@@ -7,7 +7,6 @@ library(ggplot2)
 library(ggimage)
 
 library(tidyverse) # Data Cleaning, manipulation, summarization, plotting
-library(gt) # beautiful tables
 library(DT) # beautiful interactive tables
 library(ggthemes) # custom pre-built themes
 library(bbplot) # more themes
