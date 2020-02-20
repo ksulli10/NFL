@@ -1,7 +1,6 @@
 # takes season as input, e.g. "2018"
 get_pass_td_vs_expected <- function(season) {
   
-  
   # create df name based on season input
   # requires existence of "pbp_20XX" named file
   pbp_input <- paste("pbp", season, sep = "_")

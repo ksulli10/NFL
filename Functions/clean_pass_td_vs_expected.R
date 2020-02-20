@@ -1,6 +1,5 @@
 # takes a year as input, e.g. "2017"
 clean_pass_td_vs_expected <- function(season) {
-  
 
   # create df name based on season input
   # requires existence of "player_id_list_20XX" named file
