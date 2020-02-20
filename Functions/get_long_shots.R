@@ -1,7 +1,5 @@
 # takes season as input, e.g. "2018"
 get_long_shots <- function(season) {
-  
-  
   # create df name based on season input
   # requires existence of "pbp_20XX" named file
   pbp_input <- paste("pbp", season, sep = "_")
@@ -78,8 +76,7 @@ get_long_shots <- function(season) {
       "Runs",
       "Short Passes",
       "Medium Passes",
-      "Long Passes"
-)
+      "Long Passes")
   
   # create vector for total_plays
   total_plays <- c(
@@ -110,8 +107,10 @@ get_long_shots <- function(season) {
   
   # create vector for first down rates
   first_down_pct <- c(
-    mean(all_plays$first_down_pass + all_plays$first_down_rush,
-         na.rm = TRUE),
+    mean(
+      all_plays$first_down_pass + all_plays$first_down_rush,
+      na.rm = TRUE
+    ),
     mean(run_plays$first_down_rush,
          na.rm = TRUE),
     mean(short_pass_plays$first_down_pass,
@@ -132,7 +131,15 @@ get_long_shots <- function(season) {
   )
   
   # put vectors into output dataframe
-  output <- data.frame(play_type, total_plays, epa_per_play, yards_gained_per_play, first_down_pct, series_success_rate)
+  output <-
+    data.frame(
+      play_type,
+      total_plays,
+      epa_per_play,
+      yards_gained_per_play,
+      first_down_pct,
+      series_success_rate
+    )
   
   # return output dataframe
   return(output)
