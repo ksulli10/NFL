@@ -1,26 +1,34 @@
-# takes a year as input, e.g. "2017"
+####
+#### Requirements:
+####    1.  nflscrapR play-by-play data frame
+####        (named "pbp_####" e.g. "pbp_2018")
+####    2.  nflscrapR playerstats data frame
+####        (named "playerstats##" e.g. "playerstats18")
+####
+
 clean_pass_td_vs_expected <- function(season) {
 
-  # create df name based on season input
-  # requires existence of "player_id_list_20XX" named file
-  player_id_list <- paste("player_id_list", season, sep = "_")
+  # create player_id_list file
+  source("Functions/get_player_id_list.R")
+  player_id_list <- get_player_id_list(season)
   
-  # run get_pass_td_vs_expected function on pbp_input string formed above
+  # run get_pass_td_vs_expected function
+  source("Functions/get_pass_td_vs_expected.R")
   output <- get_pass_td_vs_expected(season)
   
   # add full names, positions, teams
   output <-
     left_join(output,
-              get(player_id_list),
-              by = c("passer_player_id" = "GSIS_ID"))
+              player_id_list,
+              by = c("passer_player_id" = "playerID"))
   
   # rearrange and extract certain columns
   output <- select(
     output,
     passer_player_id,
-    Player,
-    Team,
-    Pos,
+    name,
+    # Team,
+    # Pos,
     player_pass_att,
     expected_pass_tds,
     actual_pass_tds,
@@ -32,7 +40,7 @@ clean_pass_td_vs_expected <- function(season) {
   output <-
     mutate_all(output, ~ replace(., is.na(.), 0))
   output <-
-    filter(output, Player != 0)
+    filter(output, name != 0)
   
   # remove duplicates
   output <- output[!duplicated(output$passer_player_id), ]

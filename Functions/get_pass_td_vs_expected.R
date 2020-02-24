@@ -1,4 +1,9 @@
-# takes season as input, e.g. "2018"
+####
+#### Requirements:
+####    1.  nflscrapR play-by-play data frame
+####        (named "pbp_####" e.g. "pbp_2018")
+####
+
 get_pass_td_vs_expected <- function(season) {
   
   # create df name based on season input
@@ -6,10 +11,14 @@ get_pass_td_vs_expected <- function(season) {
   pbp_input <- paste("pbp", season, sep = "_")
   pbp_input <- get(pbp_input)
   
+  # get yardline pass stats
+  source("Functions/get_yardline_pass_stats.R")
+  yardline_pass_stats_overall <- get_yardline_pass_stats("data_overall")
   
   # get player id list
-  player_id_list_unique_overall <-
-    get_player_id_list_unique(playerstats_overall)
+  source("Functions/get_player_id_list.R")
+    player_id_list_unique_overall <-
+    get_player_id_list("overall")
   
   
   # remove duplicates
