@@ -1,8 +1,11 @@
 ####
 #### Requirements:
-####    1.  nflscrapR player stats data frame
-####        (created from nflscrapR season_player_game function.)
-####        (named "playerstats##" e.g. "playerstats18")
+####    1.  nflscrapR playerstats data frame
+####        (named "playerstats_####" e.g. "playerstats_2018")
+####
+####    *These files are automatically created by running "Master Project Setup.R"
+####    *That script only needs to be run once.
+####    *Local .rds files will be created to load from in the future (via "Local Load Setup.R")
 ####
 
 

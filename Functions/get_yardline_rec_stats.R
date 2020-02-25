@@ -1,17 +1,23 @@
-# takes a year as input, e.g. "2017"
+####
+#### Requirements:
+####    1.  nflscrapR play-by-play data frame
+####        (named "pbp_####" e.g. "pbp_2018")
+####
+####    *These files are automatically created by running "Master Project Setup.R"
+####    *That script only needs to be run once.
+####    *Local .rds files will be created to load from in the future (via "Local Load Setup.R")
+####
+
+# define function
 get_yardline_rec_stats <- function(season) {
-  
-  
-  # create df name based on season input
-  # requires existence of "pbp_20XX" named file
+  # create data frame variable based on season input, e.g. "2018" -> "pbp_2018"
   pbp_input <- paste("pbp", season, sep = "_")
+  # load data frame into local variable
   pbp_input <- get(pbp_input)
-  
   
   # create empty set
   output <-
     data.frame(yardline_100 = c(1:99))
-  
   
   # get rec TDs by yard line and air yards
   output <-
@@ -25,7 +31,6 @@ get_yardline_rec_stats <- function(season) {
         select(yardline_100, touchdown_air_yards = air_yards, rec_tds),
       by = "yardline_100"
     )
-  
   
   # add rec attempts by yardline and air yards
   output <-
@@ -41,7 +46,6 @@ get_yardline_rec_stats <- function(season) {
     ) %>%
     mutate("air_yards" = touchdown_air_yards)
   
-  
   # calculate rate stats and order columns
   output <-
     mutate(output,
@@ -52,11 +56,10 @@ get_yardline_rec_stats <- function(season) {
            rec_att,
            rec_td_rate)
   
-  
   # change anything NA to a 0
   output <-
     mutate_all(output, ~ replace(., is.na(.), 0))
   
-  
+  # return output data frame
   return(output)
 }
