@@ -1,10 +1,19 @@
-# takes season as input, e.g. "2018"
+####
+#### Requirements:
+####    1.  nflscrapR play-by-play data frame
+####        (named "pbp_####" e.g. "pbp_2018")
+####
+####    *These files are automatically created by running "Master Project Setup.R"
+####    *That script only needs to be run once.
+####    *Local .rds files will be created to load from in the future (via "Local Load Setup.R")
+####
+
+# define function
 get_long_shots <- function(season) {
-  # create df name based on season input
-  # requires existence of "pbp_20XX" named file
+  # create data frame variable based on season input, e.g. "2018" -> "pbp_2018"
   pbp_input <- paste("pbp", season, sep = "_")
+  # load data frame into local variable
   pbp_input <- get(pbp_input)
-  
   
   # grab all plays fitting the specified conditions
   all_plays <- filter(
