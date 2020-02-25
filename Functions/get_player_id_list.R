@@ -8,9 +8,8 @@
 ####    *Local .rds files will be created to load from in the future (via "Local Load Setup.R")
 ####
 
-
+# define function
 get_player_id_list <- function(season) {
-  
   # create playerstats variable
   playerstats_file <- paste("playerstats", season, sep = "_")
   # import the data frame
@@ -23,5 +22,6 @@ get_player_id_list <- function(season) {
     ungroup(playerstats_file) %>%
     na.omit()
   
+  # return output data frame
   return(output)
 }

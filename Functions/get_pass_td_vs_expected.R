@@ -27,7 +27,8 @@ get_pass_td_vs_expected <- function(season) {
   all_pass_tds <-
     filter(pbp_input,
            pass_touchdown == 1,
-           play_type == "pass",!is.na(air_yards)) %>%
+           play_type == "pass",
+           !is.na(air_yards)) %>%
     group_by(passer_player_id, yardline_100, air_yards, play_type) %>%
     summarise(actual_pass_tds = n()) %>%
     ungroup(all_att_by_yardline)
@@ -35,7 +36,7 @@ get_pass_td_vs_expected <- function(season) {
   # calculate total attempts by yard line and air yards for player
   all_att_by_yardline <-
     filter(pbp_input,
-           play_type == "pass",!is.na(air_yards)) %>%
+           play_type == "pass", !is.na(air_yards)) %>%
     group_by(passer_player_id, yardline_100, air_yards, play_type) %>%
     summarise(player_pass_att = n()) %>%
     ungroup(all_att_by_yardline)

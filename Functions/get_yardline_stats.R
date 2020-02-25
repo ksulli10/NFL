@@ -1,9 +1,18 @@
-# takes play by play df as input, e.g. "pbp_2018"
+####
+#### Requirements:
+####    1.  nflscrapR play-by-play data frame
+####        (named "pbp_####" e.g. "pbp_2018")
+####
+####    *These files are automatically created by running "Master Project Setup.R"
+####    *That script only needs to be run once.
+####    *Local .rds files will be created to load from in the future (via "Local Load Setup.R")
+####
+
+# define function
 get_yardline_stats <- function(season) {
-  
-  # create df name based on season input
-  # requires existence of "pbp_20XX" named file
+  # create data frame variable based on season input, e.g. "2018" -> "pbp_2018"
   pbp_input <- paste("pbp", season, sep = "_")
+  # load data frame into local variable
   pbp_input <- get(pbp_input)
   
   # create empty set
@@ -86,5 +95,6 @@ get_yardline_stats <- function(season) {
     mutate(yardline_stats,
            pass_favorability = round(pass_tds / pass_att - rush_tds / rush_att, 4))
   
+  # return output data frame
   return(yardline_stats)
 }

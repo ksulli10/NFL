@@ -36,7 +36,7 @@ get_yardline_pass_stats <- function(season) {
   output <-
     right_join(
       output,
-      filter(pbp_input, play_type == "pass", !is.na(air_yards)) %>%
+      filter(pbp_input, play_type == "pass",!is.na(air_yards)) %>%
         select(yardline_100, play_type, air_yards) %>%
         group_by(yardline_100, air_yards) %>%
         count(play_type) %>%
