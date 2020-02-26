@@ -1,7 +1,7 @@
 # load libraries
 source("Workspace/Load Libraries.R")
 
-# create PBP data frames
+# create pbp data frames
 source("Workspace/Generate PBP Data Frames.R")
 
 # save pbp data frames into local RDS files
