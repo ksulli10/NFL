@@ -1,7 +1,6 @@
 #
-# Save player stats data frames to local .rds files.
+# save player stats data frames to local .rds files
 #
-saveRDS(playerstats_overall, file = "Data/playerstats_overall.rds")
 saveRDS(playerstats_2019, file = "Data/playerstats_2019.rds")
 saveRDS(playerstats_2018, file = "Data/playerstats_2018.rds")
 saveRDS(playerstats_2017, file = "Data/playerstats_2017.rds")

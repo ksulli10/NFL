@@ -1,7 +1,6 @@
 #
-# Save play-by-play data frames to local .rds files.
+# save play-by-play data frames to local .rds files
 #
-saveRDS(pbp_data_overall, file = "Data/pbp_data_overall.rds")
 saveRDS(pbp_2019, file = "Data/pbp_2019.rds")
 saveRDS(pbp_2018, file = "Data/pbp_2018.rds")
 saveRDS(pbp_2017, file = "Data/pbp_2017.rds")
