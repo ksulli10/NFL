@@ -116,6 +116,7 @@ get_rec_td_vs_expected <- function(season) {
               by = c("receiver_player_id" = "playerID"))  %>%
     select(
       receiver_player_id,
+      Season,
       Team,
       Pos,
       name,

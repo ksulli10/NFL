@@ -1,6 +1,10 @@
+source("Projects/Expected TDs/Create Expected TD Stats.R")
+rush_td_vs_expected_1000_carries <-
+  filter(rush_td_vs_expected_overall_grouped, player_rush_att >= 1000)
+
 ggplot(data = rush_td_vs_expected_1000_carries,
        mapping = aes(
-         x = reorder(Player, tds_over_expectation_per_att),
+         x = reorder(name, tds_over_expectation_per_att),
          y = tds_over_expectation_per_att
        )) +
   geom_bar(stat = "identity",
@@ -12,27 +16,17 @@ ggplot(data = rush_td_vs_expected_1000_carries,
     y = -0.0005 * (
       abs(tds_over_expectation_per_att) / tds_over_expectation_per_att
     ),
-    label = Player,
-    angle = 60,
+    label = name,
+    angle = 90,
     hjust = "inward",
   )) +
-  labs(
-    title = "Rushing Touchdown Efficiency",
-    subtitle = "2009-2018, Min 1000 Attempts",
-    y = "Rush TDs Against Expectation Per Att."
-  ) +
+  labs(title = "Rushing Touchdown Efficiency",
+       subtitle = "2009-2018, Min 1000 Attempts",
+       y = "Rush TDs Against Expectation Per Att.") +
   theme_stata() +
   theme(
     axis.title.x = element_blank(),
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),
     legend.position = "none"
-  ) +
-  annotate(
-    "text",
-    x = "Le'Veon Bell",
-    y = .0005,
-    label = "Le'Veon Bell",
-    angle = 60,
-    hjust = "left"
   )

@@ -1,6 +1,10 @@
-ggplot(data = rec_td_vs_expected_min900,
+source("Projects/Expected TDs/Create Expected TD Stats.R")
+rec_td_vs_expected_900_rec_att <-
+  filter(rec_td_vs_expected_overall_grouped, player_rec_att >= 900)
+
+ggplot(data = rec_td_vs_expected_900_rec_att,
        mapping = aes(
-         x = reorder(Player, tds_over_expectation_per_att),
+         x = reorder(name, tds_over_expectation_per_att),
          y = tds_over_expectation_per_att
        )) +
   geom_bar(stat = "identity",
@@ -12,7 +16,7 @@ ggplot(data = rec_td_vs_expected_min900,
     y = -0.0005 * (
       abs(tds_over_expectation_per_att) / tds_over_expectation_per_att
     ),
-    label = Player,
+    label = name,
     angle = 60,
     hjust = "inward",
   )) +
@@ -26,4 +30,5 @@ ggplot(data = rec_td_vs_expected_min900,
     axis.ticks.x = element_blank(),
     legend.position = "none"
   ) +
-  scale_y_continuous(breaks = seq(-.010, .03, by = .01), limit=c(-.01,.03))
+  scale_y_continuous(breaks = seq(-.010, .03, by = .01),
+                     limit = c(-.01, .03))

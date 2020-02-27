@@ -109,6 +109,7 @@ get_rush_td_vs_expected <- function(season) {
               by = c("rusher_player_id" = "playerID"))  %>%
     select(
       rusher_player_id,
+      Season,
       Team,
       Pos,
       name,

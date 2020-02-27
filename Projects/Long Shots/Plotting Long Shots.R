@@ -1,3 +1,7 @@
+source("Functions/theme_538.R")
+source("Functions/get_long_shots.R")
+long_shots_overall <- get_long_shots("data_overall")
+
 # First Down Rate
 long_shots_overall %>%
   ggplot(aes(x = reorder(play_type, total_plays, desc), y = first_down_pct)) +

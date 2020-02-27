@@ -116,6 +116,7 @@ get_pass_td_vs_expected <- function(season) {
               by = c("passer_player_id" = "playerID"))  %>%
     select(
       passer_player_id,
+      Season,
       Team,
       Pos,
       name,

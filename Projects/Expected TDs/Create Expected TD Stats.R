@@ -1,15 +1,17 @@
-# create individual dfs for pass td for each season
+# instantiate functions
+source("Functions/get_pass_td_vs_expected.R")
+source("Functions/get_rush_td_vs_expected.R")
+source("Functions/get_rec_td_vs_expected.R")
+
+# create individual dfs for tds for each season
 for (year in c(2009:2018)) {
   assign(paste("pass_td_vs_expected", year, sep = "_"),
-         clean_pass_td_vs_expected(year))
+         get_pass_td_vs_expected(year))
   assign(paste("rush_td_vs_expected", year, sep = "_"),
-         clean_rush_td_vs_expected(year))
+         get_rush_td_vs_expected(year))
   assign(paste("rec_td_vs_expected", year, sep = "_"),
-         clean_rec_td_vs_expected(year))
+         get_rec_td_vs_expected(year))
 }
-
-
-
 
 # bind pass stats ungrouped
 pass_td_vs_expected_overall_ungrouped <-
@@ -40,7 +42,7 @@ pass_td_vs_expected_overall_grouped <-
     pass_td_vs_expected_2017,
     pass_td_vs_expected_2018
   ) %>%
-  group_by(passer_player_id, Player, Pos) %>%
+  group_by(passer_player_id, name, Pos) %>%
   summarise(
     player_pass_att = sum(player_pass_att),
     expected_pass_tds = sum(expected_pass_tds),
@@ -49,9 +51,6 @@ pass_td_vs_expected_overall_grouped <-
     tds_over_expectation_per_att = round(sum(actual_pass_tds - expected_pass_tds) / sum(player_pass_att), 4)
   ) %>%
   ungroup()
-
-
-
 
 # bind rush stats ungrouped
 rush_td_vs_expected_overall_ungrouped <-
@@ -82,7 +81,7 @@ rush_td_vs_expected_overall_grouped <-
     rush_td_vs_expected_2017,
     rush_td_vs_expected_2018
   ) %>%
-  group_by(rusher_player_id, Player, Pos) %>%
+  group_by(rusher_player_id, name, Pos) %>%
   summarise(
     player_rush_att = sum(player_rush_att),
     expected_rush_tds = sum(expected_rush_tds),
@@ -91,9 +90,6 @@ rush_td_vs_expected_overall_grouped <-
     tds_over_expectation_per_att = round(sum(actual_rush_tds - expected_rush_tds) / sum(player_rush_att), 4)
   ) %>%
   ungroup()
-
-
-
 
 # bind receiving stats ungrouped
 rec_td_vs_expected_overall_ungrouped <-
@@ -124,7 +120,7 @@ rec_td_vs_expected_overall_grouped <-
     rec_td_vs_expected_2017,
     rec_td_vs_expected_2018
   ) %>%
-  group_by(receiver_player_id, Player, Pos) %>%
+  group_by(receiver_player_id, name, Pos) %>%
   summarise(
     player_rec_att = sum(player_rec_att),
     expected_rec_tds = sum(expected_rec_tds),
@@ -134,15 +130,12 @@ rec_td_vs_expected_overall_grouped <-
   ) %>%
   ungroup()
 
-
-
-
 # combine rec and rush for skill stats, ungrouped
 skill_td_vs_expected_overall_ungrouped <-
   full_join(
     rush_td_vs_expected_overall_ungrouped,
     rec_td_vs_expected_overall_ungrouped,
-    by = c("rusher_player_id" = "receiver_player_id", "Player", "Year", "Team", "Pos")
+    by = c("rusher_player_id" = "receiver_player_id", "name", "Season", "Team", "Pos")
   ) %>%
   mutate_all(~ replace(., is.na(.), 0)) %>%
   mutate(
@@ -155,8 +148,8 @@ skill_td_vs_expected_overall_ungrouped <-
   ) %>%
   select(
     player_id,
-    Year,
-    Player,
+    Season,
+    name,
     Team,
     Pos,
     rushes_and_targets,
@@ -171,7 +164,7 @@ skill_td_vs_expected_overall_grouped <-
   full_join(
     rush_td_vs_expected_overall_ungrouped,
     rec_td_vs_expected_overall_ungrouped,
-    by = c("rusher_player_id" = "receiver_player_id", "Player", "Year", "Team", "Pos")
+    by = c("rusher_player_id" = "receiver_player_id", "name", "Season", "Team", "Pos")
   ) %>%
   mutate_all(~ replace(., is.na(.), 0)) %>%
   mutate(
@@ -184,8 +177,8 @@ skill_td_vs_expected_overall_grouped <-
   ) %>%
   select(
     player_id,
-    Year,
-    Player,
+    Season,
+    name,
     Team,
     Pos,
     rushes_and_targets,
@@ -194,7 +187,7 @@ skill_td_vs_expected_overall_grouped <-
     tds_over_expectation,
     tds_over_expectation_per_att
   ) %>%
-  group_by(player_id, Player, Pos) %>%
+  group_by(player_id, name, Pos) %>%
   summarise(
     rushes_and_targets = sum(rushes_and_targets),
     expected_tds = sum(expected_tds),
