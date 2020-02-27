@@ -117,6 +117,7 @@ get_rec_td_vs_expected <- function(season) {
     select(
       receiver_player_id,
       Team,
+      Pos,
       name,
       player_rec_att,
       expected_rec_tds,

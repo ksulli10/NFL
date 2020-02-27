@@ -110,6 +110,7 @@ get_rush_td_vs_expected <- function(season) {
     select(
       rusher_player_id,
       Team,
+      Pos,
       name,
       player_rush_att,
       expected_rush_tds,
