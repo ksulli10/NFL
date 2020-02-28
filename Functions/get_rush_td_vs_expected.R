@@ -5,9 +5,7 @@
 ####    2.  nflscrapR playerstats data frame
 ####        (named "playerstats_####" e.g. "playerstats_2018")
 ####
-####    *These files are automatically created by running "Master Project Setup.R"
-####    *That script only needs to be run once.
-####    *Local .rds files will be created to load from in the future (via "Local Load Setup.R")
+####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####
 
 # define function
@@ -111,7 +109,7 @@ get_rush_td_vs_expected <- function(season) {
       rusher_player_id,
       Season,
       Team,
-      Pos,
+      # Pos,
       name,
       player_rush_att,
       expected_rush_tds,
@@ -119,6 +117,9 @@ get_rush_td_vs_expected <- function(season) {
       tds_over_expectation,
       tds_over_expectation_per_att
     )
+  
+  # filter NAs
+  output <- filter(output, !is.na(Season))
   
   # return completed data frame
   return(output)

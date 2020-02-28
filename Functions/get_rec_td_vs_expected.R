@@ -5,9 +5,7 @@
 ####    2.  nflscrapR playerstats data frame
 ####        (named "playerstats_####" e.g. "playerstats_2018")
 ####
-####    *These files are automatically created by running "Master Project Setup.R"
-####    *That script only needs to be run once.
-####    *Local .rds files will be created to load from in the future (via "Local Load Setup.R")
+####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####
 
 # define function
@@ -39,7 +37,8 @@ get_rec_td_vs_expected <- function(season) {
            play_type == "pass", !is.na(air_yards)) %>%
     group_by(receiver_player_id, yardline_100, air_yards, play_type) %>%
     summarise(player_rec_att = n()) %>%
-    ungroup(all_att_by_yardline)
+    ungroup(all_att_by_yardline) %>% 
+    na.omit
   
   # merge to all_rec_tds
   all_rec_tds <-
@@ -54,7 +53,7 @@ get_rec_td_vs_expected <- function(season) {
            actual_rec_tds,
            player_rec_att)
   
-  # set NA to 0
+  # set NA to 0 (most target profiles did not result in a TD at all)
   all_rec_tds <-
     mutate_all(all_rec_tds, ~ replace(., is.na(.), 0)) %>%
     filter(receiver_player_id != "1")
@@ -118,7 +117,7 @@ get_rec_td_vs_expected <- function(season) {
       receiver_player_id,
       Season,
       Team,
-      Pos,
+      # Pos,
       name,
       player_rec_att,
       expected_rec_tds,
@@ -126,6 +125,9 @@ get_rec_td_vs_expected <- function(season) {
       tds_over_expectation,
       tds_over_expectation_per_att
     )
+  
+  # filter NAs
+  output <- filter(output, !is.na(Season))
   
   # return completed data frame
   return(output)
