@@ -5,9 +5,7 @@
 ####    2.  nflscrapR playerstats data frame
 ####        (named "playerstats_####" e.g. "playerstats_2018")
 ####
-####    *These files are automatically created by running "Master Project Setup.R"
-####    *That script only needs to be run once.
-####    *Local .rds files will be created to load from in the future (via "Local Load Setup.R")
+####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####
 
 # define function
