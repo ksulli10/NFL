@@ -35,8 +35,8 @@ pbp_2009 <- add_series_success(2009)
 # create overall pbp data frame
 #
 library(plyr)
-remove(pbp_data_overall)
-pbp_data_overall <-
+remove(pbp_overall)
+pbp_overall <-
   rbind.fill(
     pbp_2009,
     pbp_2010,

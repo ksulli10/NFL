@@ -17,8 +17,8 @@ pbp_2009 <- readRDS("Data/pbp_2009.rds")
 # create overall pbp data frame
 #
 library(plyr)
-remove(pbp_data_overall)
-pbp_data_overall <-
+remove(pbp_overall)
+pbp_overall <-
   rbind.fill(
     pbp_2009,
     pbp_2010,
