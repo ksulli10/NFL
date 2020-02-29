@@ -19,14 +19,13 @@ get_rec_td_vs_expected <- function(season) {
   # these are used for calculating the expectation
   source("Functions/get_yardline_rec_stats.R")
   yardline_rec_stats_overall <-
-    get_yardline_rec_stats("data_overall")
+    get_yardline_rec_stats("overall")
   
   # calculate rec tds per player by yard line and air yards
   all_rec_tds <-
     filter(pbp_input,
            pass_touchdown == 1,
-           play_type == "pass",
-           !is.na(air_yards)) %>%
+           play_type == "pass",!is.na(air_yards)) %>%
     group_by(receiver_player_id, yardline_100, air_yards, play_type) %>%
     summarise(actual_rec_tds = n()) %>%
     ungroup(all_att_by_yardline)
@@ -34,10 +33,10 @@ get_rec_td_vs_expected <- function(season) {
   # calculate total attempts by yard line and air yards for player
   all_att_by_yardline <-
     filter(pbp_input,
-           play_type == "pass", !is.na(air_yards)) %>%
+           play_type == "pass",!is.na(air_yards)) %>%
     group_by(receiver_player_id, yardline_100, air_yards, play_type) %>%
     summarise(player_rec_att = n()) %>%
-    ungroup(all_att_by_yardline) %>% 
+    ungroup(all_att_by_yardline) %>%
     na.omit
   
   # merge to all_rec_tds

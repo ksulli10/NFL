@@ -7,7 +7,7 @@
 ####
 
 # define function
-get_yardline_rush_stats <- function(season) {
+get_yardline_rush_stats <- function(season = "overall") {
   # create data frame variable based on season input, e.g. "2018" -> "pbp_2018"
   pbp_input <- paste("pbp", season, sep = "_")
   # load data frame into local variable
@@ -21,7 +21,12 @@ get_yardline_rush_stats <- function(season) {
   output <-
     full_join(
       output,
-      filter(pbp_input, rush_touchdown == 1, play_type == "run") %>%
+      filter(
+        pbp_input,
+        rush_touchdown == 1,
+        play_type == "run",
+        half_seconds_remaining >= 60
+      ) %>%
         select(yardline_100, play_type, rush_touchdown) %>%
         group_by(yardline_100) %>%
         count(rush_touchdown) %>%
@@ -34,7 +39,11 @@ get_yardline_rush_stats <- function(season) {
   output <-
     full_join(
       output,
-      filter(pbp_input, play_type == "run") %>%
+      filter(
+        pbp_input,
+        play_type == "run",
+        half_seconds_remaining >= 60
+      ) %>%
         select(yardline_100, play_type) %>%
         group_by(yardline_100) %>%
         count(play_type) %>%
