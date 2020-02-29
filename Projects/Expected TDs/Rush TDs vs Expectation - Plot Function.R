@@ -25,7 +25,7 @@ plot_rush_td_vs_expected <- function(season, attempts = 20) {
     mapping = aes(x = expected_rush_tds, y = actual_rush_tds, label = name)
   ) +
     geom_point() +
-    geom_text(size = 3, nudge_y = -0.5) +
+    geom_text(size = 3, nudge_y = -0.5, check_overlap = TRUE) +
     geom_abline(linetype = "dashed")
   # coord_fixed() +
   # scale_x_continuous(limit = c(0, NA)) +

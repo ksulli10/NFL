@@ -24,8 +24,9 @@ plot_pass_td_vs_expected <- function(season, attempts = 20) {
     data = pass_td_data,
     mapping = aes(x = expected_pass_tds, y = actual_pass_tds, label = name)
   ) +
+    # theme_538() +
     geom_point() +
-    geom_text(size = 3, nudge_y = -0.5) +
+    geom_text(size = 3, nudge_y = -0.5, check_overlap=TRUE) +
     geom_abline(linetype = "dashed")
   # coord_fixed() +
   # scale_x_continuous(limit = c(0, NA)) +
