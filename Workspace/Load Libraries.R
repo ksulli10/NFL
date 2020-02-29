@@ -15,3 +15,4 @@ library(teamcolors) # NFL team colors and logos
 library(ggforce) # better annotations
 library(ggridges) # many distributions at once
 library(ggrepel) # better labels
+library(teamcolors) # sports team colors
