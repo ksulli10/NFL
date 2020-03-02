@@ -7,7 +7,7 @@
 ####
 
 # define function
-get_yardline_stats <- function(season = "overall") {
+get_yardline_td_stats <- function(season = "overall") {
   # create data frame variable based on season input, e.g. "2018" -> "pbp_2018"
   pbp_input <- paste("pbp", season, sep = "_")
   # load data frame into local variable

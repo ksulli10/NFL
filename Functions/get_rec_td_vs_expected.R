@@ -17,9 +17,9 @@ get_rec_td_vs_expected <- function(season) {
   
   # get overall yardline rec stats for all available pbp data
   # these are used for calculating the expectation
-  source("Functions/get_yardline_rec_stats.R")
-  yardline_rec_stats_overall <-
-    get_yardline_rec_stats("overall")
+  source("Functions/get_yardline_rec_td_stats.R")
+  yardline_rec_td_stats_overall <-
+    get_yardline_rec_td_stats("overall")
   
   # calculate rec tds per player by yard line and air yards
   all_rec_tds <-
@@ -61,7 +61,7 @@ get_rec_td_vs_expected <- function(season) {
   all_expected_tds_by_yardline <-
     left_join(
       all_att_by_yardline,
-      yardline_rec_stats_overall,
+      yardline_rec_td_stats_overall,
       by = c("yardline_100", "air_yards")
     ) %>%
     select(receiver_player_id,
@@ -70,6 +70,10 @@ get_rec_td_vs_expected <- function(season) {
            player_rec_att,
            rec_td_rate) %>%
     mutate(expected_rec_tds = round(player_rec_att * rec_td_rate, 4))
+  
+  # change anything NA to a 0
+  all_expected_tds_by_yardline <-
+    mutate_all(all_expected_tds_by_yardline, ~ replace(., is.na(.), 0))
   
   # sum the expected TDs
   rec_td_sum <-
@@ -114,7 +118,7 @@ get_rec_td_vs_expected <- function(season) {
               by = c("receiver_player_id" = "playerID"))  %>%
     select(
       receiver_player_id,
-      Season,
+      # Season,
       Team,
       # Pos,
       name,
@@ -125,8 +129,8 @@ get_rec_td_vs_expected <- function(season) {
       tds_over_expectation_per_att
     )
   
-  # filter NAs
-  output <- filter(output, !is.na(Season))
+  # # filter NAs
+  # output <- filter(output, !is.na(Season))
   
   # return completed data frame
   return(output)

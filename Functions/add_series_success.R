@@ -1,4 +1,4 @@
-#### [[[CREDIT:  LEE SHARPE ON TWITTER]]]
+#### [[[CREDIT:  LEE SHARPE]]]
 ####
 #### Requirements:
 ####    1.  nflscrapR play-by-play data frame

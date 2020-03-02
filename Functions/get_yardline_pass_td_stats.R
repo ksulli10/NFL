@@ -7,7 +7,7 @@
 ####
 
 # define function
-get_yardline_rec_stats <- function(season = "overall") {
+get_yardline_pass_td_stats <- function(season = "overall") {
   # create data frame variable based on season input, e.g. "2018" -> "pbp_2018"
   pbp_input <- paste("pbp", season, sep = "_")
   # load data frame into local variable
@@ -17,7 +17,7 @@ get_yardline_rec_stats <- function(season = "overall") {
   output <-
     data.frame(yardline_100 = c(1:99))
   
-  # get rec TDs by yard line and air yards
+  # get pass TDs by yard line and air yards
   output <-
     full_join(
       output,
@@ -30,12 +30,12 @@ get_yardline_rec_stats <- function(season = "overall") {
         select(yardline_100, play_type, pass_touchdown, air_yards) %>%
         group_by(yardline_100, air_yards) %>%
         count(pass_touchdown) %>%
-        mutate(rec_tds = n) %>%
-        select(yardline_100, touchdown_air_yards = air_yards, rec_tds),
+        mutate(pass_tds = n) %>%
+        select(yardline_100, touchdown_air_yards = air_yards, pass_tds),
       by = "yardline_100"
     )
   
-  # add rec attempts by yardline and air yards
+  # add pass attempts by yardline and air yards
   output <-
     right_join(
       output,
@@ -48,8 +48,8 @@ get_yardline_rec_stats <- function(season = "overall") {
         select(yardline_100, play_type, air_yards) %>%
         group_by(yardline_100, air_yards) %>%
         count(play_type) %>%
-        mutate(rec_att = n) %>%
-        select(yardline_100, attempt_air_yards = air_yards, rec_att),
+        mutate(pass_att = n) %>%
+        select(yardline_100, attempt_air_yards = air_yards, pass_att),
       by = c("yardline_100", "touchdown_air_yards" = "attempt_air_yards")
     ) %>%
     mutate("air_yards" = touchdown_air_yards)
@@ -57,12 +57,12 @@ get_yardline_rec_stats <- function(season = "overall") {
   # calculate rate stats and order columns
   output <-
     mutate(output,
-           rec_td_rate = round(rec_tds / rec_att, 4)) %>%
+           pass_td_rate = round(pass_tds / pass_att, 4)) %>%
     select(yardline_100,
            air_yards,
-           rec_tds,
-           rec_att,
-           rec_td_rate)
+           pass_tds,
+           pass_att,
+           pass_td_rate)
   
   # change anything NA to a 0
   output <-

@@ -17,9 +17,9 @@ get_rush_td_vs_expected <- function(season) {
   
   # get overall yardline rush stats for all available pbp data
   # these are used for calculating the expectation
-  source("Functions/get_yardline_rush_stats.R")
-  yardline_rush_stats_overall <-
-    get_yardline_rush_stats("overall")
+  source("Functions/get_yardline_rush_td_stats.R")
+  yardline_rush_td_stats_overall <-
+    get_yardline_rush_td_stats("overall")
   
   # calculate rush tds per player by yard line
   all_rush_tds <-
@@ -56,13 +56,17 @@ get_rush_td_vs_expected <- function(season) {
   # calculate expected tds by yard line for player
   all_expected_tds_by_yardline <-
     left_join(all_att_by_yardline,
-              yardline_rush_stats_overall,
+              yardline_rush_td_stats_overall,
               by = c("yardline_100")) %>%
     select(rusher_player_id,
            yardline_100,
            player_rush_att,
            rush_td_rate) %>%
     mutate(expected_rush_tds = round(player_rush_att * rush_td_rate, 4))
+  
+  # change anything NA to a 0
+  all_expected_tds_by_yardline <-
+    mutate_all(all_expected_tds_by_yardline, ~ replace(., is.na(.), 0))
   
   # sum the expected TDs
   rush_td_sum <-
@@ -107,7 +111,7 @@ get_rush_td_vs_expected <- function(season) {
               by = c("rusher_player_id" = "playerID"))  %>%
     select(
       rusher_player_id,
-      Season,
+      # Season,
       Team,
       # Pos,
       name,
@@ -118,8 +122,8 @@ get_rush_td_vs_expected <- function(season) {
       tds_over_expectation_per_att
     )
   
-  # filter NAs
-  output <- filter(output,!is.na(Season))
+  # # filter NAs
+  # output <- filter(output,!is.na(Season))
   
   # return completed data frame
   return(output)

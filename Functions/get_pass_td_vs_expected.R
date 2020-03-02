@@ -17,9 +17,9 @@ get_pass_td_vs_expected <- function(season) {
   
   # get overall yardline pass stats for all available pbp data
   # these are used for calculating the expectation
-  source("Functions/get_yardline_pass_stats.R")
-  yardline_pass_stats_overall <-
-    get_yardline_pass_stats("overall")
+  source("Functions/get_yardline_pass_td_stats.R")
+  yardline_pass_td_stats_overall <-
+    get_yardline_pass_td_stats("overall")
   
   # calculate pass tds per player by yard line and air yards
   all_pass_tds <-
@@ -60,7 +60,7 @@ get_pass_td_vs_expected <- function(season) {
   all_expected_tds_by_yardline <-
     left_join(
       all_att_by_yardline,
-      yardline_pass_stats_overall,
+      yardline_pass_td_stats_overall,
       by = c("yardline_100", "air_yards")
     ) %>%
     select(passer_player_id,
@@ -69,6 +69,10 @@ get_pass_td_vs_expected <- function(season) {
            player_pass_att,
            pass_td_rate) %>%
     mutate(expected_pass_tds = round(player_pass_att * pass_td_rate, 4))
+  
+  # change anything NA to a 0
+  all_expected_tds_by_yardline <-
+    mutate_all(all_expected_tds_by_yardline, ~ replace(., is.na(.), 0))
   
   # sum the expected TDs
   pass_td_sum <-
@@ -113,7 +117,7 @@ get_pass_td_vs_expected <- function(season) {
               by = c("passer_player_id" = "playerID"))  %>%
     select(
       passer_player_id,
-      Season,
+      # Season,
       Team,
       # Pos,
       name,
@@ -124,8 +128,8 @@ get_pass_td_vs_expected <- function(season) {
       tds_over_expectation_per_att
     )
   
-  # filter NAs
-  output <- filter(output, !is.na(Season))
+  # # filter NAs
+  # output <- filter(output, !is.na(Season))
   
   # return completed data frame
   return(output)
