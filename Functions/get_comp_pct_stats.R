@@ -32,6 +32,9 @@ get_comp_pct_stats <- function(season = "overall") {
       output,
       filter(
         pbp_input,
+        !grepl("thrown away", desc),
+        !grepl("Thrown away", desc),
+        !grepl("throws ball away", desc),
         play_type == "pass",
         half_seconds_remaining >= 60,!is.na(air_yards)
       ) %>%

@@ -19,7 +19,7 @@ get_comp_pct_vs_expected <- function(season) {
   # these are used for calculating the expectation
   source("Functions/get_comp_pct_stats.R")
   comp_pct_stats_overall <-
-    get_comp_pct_stats("overall")
+    get_comp_pct_stats(season)
   
   # calculate completions by air yards for player
   all_pass_completions <-
@@ -33,8 +33,14 @@ get_comp_pct_vs_expected <- function(season) {
   
   # calculate total attempts by air yards for player
   all_pass_att <-
-    filter(pbp_input,
-           play_type == "pass", !is.na(air_yards)) %>%
+    filter(
+      pbp_input,
+      play_type == "pass",
+      !grepl("thrown away", desc),
+      !grepl("Thrown away", desc),
+      !grepl("throws ball away", desc),
+      !is.na(air_yards)
+    ) %>%
     group_by(passer_player_id, air_yards, play_type) %>%
     summarise(player_pass_att = n()) %>%
     ungroup()
@@ -121,7 +127,7 @@ get_comp_pct_vs_expected <- function(season) {
       # Pos,
       name,
       player_pass_att,
-      actual_pass_completions,
+      actual_completions = actual_pass_completions,
       actual_comp_pct,
       expected_completions,
       expected_comp_pct,
