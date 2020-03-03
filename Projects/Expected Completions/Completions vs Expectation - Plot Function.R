@@ -15,6 +15,8 @@
 plot_comp_pct_vs_expected <- function(season, attempts = 20) {
   # instantiate the function
   source("Functions/get_comp_pct_vs_expected.R")
+  # instantiate the theme
+  source("Functions/theme_538.R")
   # get the data
   comp_pct_data <- get_comp_pct_vs_expected(season)
   # filter the data to min. attempts

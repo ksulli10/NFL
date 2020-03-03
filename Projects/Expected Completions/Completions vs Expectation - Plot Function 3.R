@@ -12,7 +12,7 @@
 
 # define plot function
 # takes season as input (e.g. "2019") and optional minimal number of attempts
-plot_comp_pct_vs_expected_2 <- function(season, attempts = 20) {
+plot_comp_pct_vs_expected_3 <- function(season, attempts = 20) {
   # instantiate the function
   source("Functions/get_comp_pct_vs_expected.R")
   # instantiate the theme
@@ -20,32 +20,28 @@ plot_comp_pct_vs_expected_2 <- function(season, attempts = 20) {
   # get the data
   comp_pct_data <- get_comp_pct_vs_expected(season)
   # filter the data to min. attempts
-  comp_pct_data <-
-    filter(comp_pct_data, player_pass_att >= attempts)
+  comp_pct_data <- filter(comp_pct_data, player_pass_att >= attempts)
   
   # plot the data
   comp_pct_data %>%
-    ggplot(aes(x = reorder(name, cpoe), y = cpoe)) +
-    geom_col(aes(fill = if_else(cpoe >= 0, "#2c7bb6", "#d7181c"))) +
-    geom_text(aes(
+    ggplot(aes(x = expected_comp_pct, y = actual_comp_pct)) +
+    geom_point(aes(color = if_else(cpoe >= 0, "#2c7bb6", "#d7181c")),
+               size = 3) +
+    geom_text_repel(aes(
       label = name,
       color = if_else(cpoe >= 0, "#2c7bb6", "#d7181c"),
-      hjust = if_else(cpoe > 0, -0.1, 1.1)
+      # hjust = if_else(cpoe > 0,-0.2, 1.2)
     )) +
-    coord_flip() +
     scale_fill_identity(aesthetics = c("fill", "colour")) +
     theme_538() +
-    theme(
-      panel.grid.major.y = element_blank(),
-      axis.text.y = element_blank()
-    ) +
-    geom_hline(yintercept = 0) +
-    scale_y_continuous(limits=c(-8,10), breaks=seq(-8, 10, by=1)) +
+    scale_y_continuous(limits=c(58,77), breaks=seq(58, 77, by=1)) +
+    scale_x_continuous(limits=c(61,68), breaks=seq(61, 68, by=1)) +
+    geom_abline(linetype = "dashed", color="grey") +
     labs(
-      x = "",
-      y = "Depth-Adjusted CPOE (%)",
+      x = "Expected Completion Pct. (%)",
+      y = "Actual Completion Pct. (%)",
       title = paste("Depth-Adjusted Completion Percentage over Expectation (",season,")",sep=""),
       subtitle = paste("Min.",attempts,"Pass Attempts"),
       caption = "Figure: @thePatsStats | Data: @nflscrapR"
-    )
+      )
 }
