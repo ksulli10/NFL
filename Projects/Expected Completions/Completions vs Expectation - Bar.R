@@ -12,7 +12,7 @@
 
 # define plot function
 # takes season as input (e.g. "2019") and optional minimal number of attempts
-plot_comp_pct_vs_expected_2 <- function(season, attempts = 20) {
+plot_comp_pct_vs_expected_bar <- function(season, attempts = 20) {
   # instantiate the function
   source("Functions/get_comp_pct_vs_expected.R")
   # instantiate the theme
