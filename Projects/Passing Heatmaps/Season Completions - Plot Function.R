@@ -17,11 +17,11 @@ plot_passer_heatmap <- function(season) {
   # filter data to player pass completions
   # combine data by coordinate blocks of 1 square yard
   tracking_input <-
-    na.omit(filter(tracking_input, name == "Tom Brady")) %>%
-    mutate(x_coord = round(x_coord, 0),
-           y_coord = round(y_coord, 0)) %>%
-    group_by(x_coord, y_coord) %>%
-    count(pass_type)
+    na.omit(filter(tracking_input, name == "Tom Brady", pass_type == "COMPLETE"))
+    # mutate(x_coord = round(x_coord, 0),
+    #        y_coord = round(y_coord, 0)) %>%
+    # group_by(x_coord, y_coord) %>%
+    # count(pass_type)
   
   # group by 3x3 yard intervals
   tracking_input <-
@@ -43,5 +43,12 @@ plot_passer_heatmap <- function(season) {
     theme_heatmap() +
     scale_fill_gradient(low = "#ffffff",
                         high = "#cf350e",
-                        na.value = "#567d46")
+                        na.value = "#567d46") +
+    # scale_y_discrete()
+    labs(
+      y = "Yards Downfield",
+      title = "Completed Passes - Heatmap",
+      subtitle = paste("Tom Brady (",season,")",sep=""),
+      caption = "Figure: @thePatsStats | Data: next-gen-scrapy-2.0"
+    )
 }
