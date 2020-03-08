@@ -25,7 +25,7 @@ theme_heatmap <- function(base_size = 10, font = "Lato") {
       
       # Axis & Titles
       text = txt,
-      axis.text = element_blank(),
+      axis.text.x = element_blank(),
       axis.ticks = element_blank(),
       axis.line = element_blank(),
       axis.title.x = element_blank(),
@@ -35,7 +35,7 @@ theme_heatmap <- function(base_size = 10, font = "Lato") {
       # Panel
       panel.grid = element_line(colour = NULL),
       panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(colour = "#000000"),
+      panel.grid.major.y = element_line(colour = "#ffffff"),
       panel.grid.minor = element_blank(),
       panel.background = element_rect(fill="#567d46"),
       panel.border = element_blank()
