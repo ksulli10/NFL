@@ -8,47 +8,70 @@
 
 # define plot function
 # takes season as input (e.g. "2019")
-plot_passer_heatmap <- function(season) {
+plot_passer_heatmap <- function(season = "overall") {
   # create data frame variable based on season input, e.g. "2018" -> "tracking_2018"
   tracking_input <- paste("tracking", season, sep = "_")
   # load data frame into local variable
   tracking_input <- get(tracking_input)
   
+  # create empty field data frame
+  empty_field_x <- c(-27:27)
+  empty_field_y <- c(-9:60)
+  empty_field <- expand.grid(empty_field_x, empty_field_y) %>%
+    arrange(Var1) %>%
+    select(x_coord = Var1, y_coord = Var2)
+  
+  # group empty field by 3x3 yard intervals
+  empty_field <-
+    group_by(
+      empty_field,
+      x_gr = cut(x_coord, breaks = seq(-27, 27, by = 3)),
+      y_gr = cut(y_coord, breaks = seq(-9, 60, 3))
+    ) %>%
+    summarise() %>%
+    ungroup()
+  
+  # remove NA
+  empty_field <- na.omit(empty_field)
+  
   # filter data to player pass completions
-  # combine data by coordinate blocks of 1 square yard
   tracking_input <-
     na.omit(filter(tracking_input, name == "Tom Brady", pass_type == "COMPLETE"))
-    # mutate(x_coord = round(x_coord, 0),
-    #        y_coord = round(y_coord, 0)) %>%
-    # group_by(x_coord, y_coord) %>%
-    # count(pass_type)
   
   # group by 3x3 yard intervals
   tracking_input <-
     group_by(
       tracking_input,
-      x_gr = cut(x_coord, breaks = seq(-30, 30, by = 3)),
-      y_gr = cut(y_coord, breaks = seq(-10, 60, 3))
+      x_gr = cut(x_coord, breaks = seq(-27, 27, by = 3)),
+      y_gr = cut(y_coord, breaks = seq(-9, 60, 3))
     ) %>%
     summarise(n = n()) %>%
-    na.omit()
+    na.omit() %>%
+    ungroup()
+  
+  # join dfs
+  output <-
+    left_join(empty_field,
+              tracking_input,
+              by = c("x_gr" = "x_gr", "y_gr" = "y_gr")) %>%
+    mutate_all( ~ replace(., is.na(.), 0))
   
   # source theme
   source("Functions/theme_heatmap.R")
   
   # plot heatmap
-  tracking_input %>%
+  output %>%
     ggplot(aes(x_gr, y_gr)) +
     geom_raster(aes(fill = n), interpolate = TRUE) +
     theme_heatmap() +
-    scale_fill_gradient(low = "#ffffff",
+    scale_fill_gradient(low = "#567d46",
                         high = "#cf350e",
-                        na.value = "#567d46") +
+                        na.value = "#ffffff") +
     # scale_y_discrete()
     labs(
       y = "Yards Downfield",
       title = "Completed Passes - Heatmap",
-      subtitle = paste("Tom Brady (",season,")",sep=""),
+      subtitle = paste("Tom Brady (", season, ")", sep = ""),
       caption = "Figure: @thePatsStats | Data: next-gen-scrapy-2.0"
     )
 }
