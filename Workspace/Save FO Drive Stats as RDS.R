@@ -1,0 +1,23 @@
+#
+# save Football Outsiders drive stats data frames to local .rds files
+#
+saveRDS(fo_drivestats_2000, file = "Data/fo_drivestats_2000.rds")
+saveRDS(fo_drivestats_2001, file = "Data/fo_drivestats_2001.rds")
+saveRDS(fo_drivestats_2002, file = "Data/fo_drivestats_2002.rds")
+saveRDS(fo_drivestats_2003, file = "Data/fo_drivestats_2003.rds")
+saveRDS(fo_drivestats_2004, file = "Data/fo_drivestats_2004.rds")
+saveRDS(fo_drivestats_2005, file = "Data/fo_drivestats_2005.rds")
+saveRDS(fo_drivestats_2006, file = "Data/fo_drivestats_2006.rds")
+saveRDS(fo_drivestats_2007, file = "Data/fo_drivestats_2007.rds")
+saveRDS(fo_drivestats_2008, file = "Data/fo_drivestats_2008.rds")
+saveRDS(fo_drivestats_2009, file = "Data/fo_drivestats_2009.rds")
+saveRDS(fo_drivestats_2010, file = "Data/fo_drivestats_2010.rds")
+saveRDS(fo_drivestats_2011, file = "Data/fo_drivestats_2011.rds")
+saveRDS(fo_drivestats_2012, file = "Data/fo_drivestats_2012.rds")
+saveRDS(fo_drivestats_2013, file = "Data/fo_drivestats_2013.rds")
+saveRDS(fo_drivestats_2014, file = "Data/fo_drivestats_2014.rds")
+saveRDS(fo_drivestats_2015, file = "Data/fo_drivestats_2015.rds")
+saveRDS(fo_drivestats_2016, file = "Data/fo_drivestats_2016.rds")
+saveRDS(fo_drivestats_2017, file = "Data/fo_drivestats_2017.rds")
+saveRDS(fo_drivestats_2018, file = "Data/fo_drivestats_2018.rds")
+saveRDS(fo_drivestats_2019, file = "Data/fo_drivestats_2019.rds")

@@ -1,0 +1,23 @@
+#
+# load local .rds files into Football Outsiders drive stats data frames
+#
+fo_drive_stats_2000 <- readRDS("Data/fo_drivestats_2000.rds")
+fo_drive_stats_2001 <- readRDS("Data/fo_drivestats_2001.rds")
+fo_drive_stats_2002 <- readRDS("Data/fo_drivestats_2002.rds")
+fo_drive_stats_2003 <- readRDS("Data/fo_drivestats_2003.rds")
+fo_drive_stats_2004 <- readRDS("Data/fo_drivestats_2004.rds")
+fo_drive_stats_2005 <- readRDS("Data/fo_drivestats_2005.rds")
+fo_drive_stats_2006 <- readRDS("Data/fo_drivestats_2006.rds")
+fo_drive_stats_2007 <- readRDS("Data/fo_drivestats_2007.rds")
+fo_drive_stats_2008 <- readRDS("Data/fo_drivestats_2008.rds")
+fo_drive_stats_2009 <- readRDS("Data/fo_drivestats_2009.rds")
+fo_drive_stats_2010 <- readRDS("Data/fo_drivestats_2010.rds")
+fo_drive_stats_2011 <- readRDS("Data/fo_drivestats_2011.rds")
+fo_drive_stats_2012 <- readRDS("Data/fo_drivestats_2012.rds")
+fo_drive_stats_2013 <- readRDS("Data/fo_drivestats_2013.rds")
+fo_drive_stats_2014 <- readRDS("Data/fo_drivestats_2014.rds")
+fo_drive_stats_2015 <- readRDS("Data/fo_drivestats_2015.rds")
+fo_drive_stats_2016 <- readRDS("Data/fo_drivestats_2016.rds")
+fo_drive_stats_2017 <- readRDS("Data/fo_drivestats_2017.rds")
+fo_drive_stats_2018 <- readRDS("Data/fo_drivestats_2018.rds")
+fo_drive_stats_2019 <- readRDS("Data/fo_drivestats_2019.rds")
