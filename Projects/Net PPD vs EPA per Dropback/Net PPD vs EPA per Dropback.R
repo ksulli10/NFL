@@ -1,3 +1,15 @@
+####
+#### Requirements:
+####    1.  nflscrapR play-by-play data frame
+####        (named "pbp_####" e.g. "pbp_2018")
+####    2.  nflscrapR playerstats data frame
+####        (named "playerstats_####" e.g. "playerstats_2018")
+####    3.  nflscrapR rosters data frame
+####        (named "rosters_####" e.g. "rosters_2018")
+####
+####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
+####
+
 select(FO_drive_stats, Season, Team, NET_PPD) %>%
   inner_join(offense_epa_overall,
              by = c("Team" = "posteam", "Season" = "Season"))
