@@ -2,7 +2,6 @@
 # devtools::install_github(repo = "ryurko/nflscrapR")
 
 library(nflscrapR)
-library(dplyr)
 library(ggplot2)
 library(ggimage)
 
@@ -15,3 +14,5 @@ library(ggforce) # better annotations
 library(ggridges) # many distributions at once
 library(ggrepel) # better labels
 library(teamcolors) # sports team colors
+
+library(dplyr)
