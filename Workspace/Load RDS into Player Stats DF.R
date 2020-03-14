@@ -32,4 +32,4 @@ playerstats_overall <-
     playerstats_2018,
     playerstats_2019
   )
-detach(package:plyr)
+library(dplyr)

@@ -32,4 +32,4 @@ rosters_overall <-
     rosters_2018,
     rosters_2019
   )
-detach(package:plyr)
+library(dplyr)

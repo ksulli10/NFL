@@ -16,4 +16,4 @@ tracking_overall <-
     tracking_2018,
     tracking_2019
   )
-detach(package:plyr)
+library(dplyr)
