@@ -53,7 +53,6 @@ pbp_2019 <-
 #
 # create overall pbp data frame
 #
-library(plyr)
 remove(pbp_overall)
 pbp_overall <-
   rbind.fill(
@@ -69,4 +68,3 @@ pbp_overall <-
     pbp_2018,
     pbp_2019
   )
-library(dplyr)

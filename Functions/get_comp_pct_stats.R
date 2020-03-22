@@ -21,7 +21,7 @@ get_comp_pct_stats <- function(season = "overall") {
            half_seconds_remaining >= 60) %>%
     select(play_type, complete_pass, air_yards) %>%
     group_by(air_yards) %>%
-    count(complete_pass) %>%
+    tally() %>%
     ungroup() %>%
     mutate(pass_completions = n) %>%
     select(air_yards, pass_completions)
@@ -40,7 +40,7 @@ get_comp_pct_stats <- function(season = "overall") {
       ) %>%
         select(play_type, air_yards) %>%
         group_by(air_yards) %>%
-        count(play_type) %>%
+        tally() %>%
         ungroup() %>%
         mutate(pass_att = n) %>%
         select(air_yards, pass_att),

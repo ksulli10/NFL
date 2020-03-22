@@ -16,7 +16,6 @@ rosters_2009 <- readRDS("Data/rosters_2009.rds")
 #
 # create overall rosters data frame
 #
-library(plyr)
 remove(rosters_overall)
 rosters_overall <-
   rbind.fill(
@@ -32,4 +31,3 @@ rosters_overall <-
     rosters_2018,
     rosters_2019
   )
-library(dplyr)

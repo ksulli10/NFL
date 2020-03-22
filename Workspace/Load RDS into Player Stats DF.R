@@ -16,7 +16,6 @@ playerstats_2009 <- readRDS("Data/playerstats_2009.rds")
 #
 # create overall player stats data frame
 #
-library(plyr)
 remove(playerstats_overall)
 playerstats_overall <-
   rbind.fill(
@@ -32,4 +31,3 @@ playerstats_overall <-
     playerstats_2018,
     playerstats_2019
   )
-library(dplyr)

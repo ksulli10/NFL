@@ -8,7 +8,6 @@ tracking_2017 <- readRDS("Data/tracking_2017.rds")
 #
 # create overall tracking data frame
 #
-library(plyr)
 remove(tracking_overall)
 tracking_overall <-
   rbind.fill(
@@ -16,4 +15,3 @@ tracking_overall <-
     tracking_2018,
     tracking_2019
   )
-library(dplyr)

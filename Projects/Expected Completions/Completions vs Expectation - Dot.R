@@ -12,7 +12,7 @@
 
 # define plot function
 # takes season as input (e.g. "2019") and optional minimal number of attempts
-plot_comp_pct_vs_expected_dot <- function(season, attempts = 20) {
+plot_comp_pct_vs_expected_dot <- function(season = "overall", attempts = 20) {
   # instantiate the function
   source("Functions/get_comp_pct_vs_expected.R")
   # instantiate the theme
@@ -34,8 +34,10 @@ plot_comp_pct_vs_expected_dot <- function(season, attempts = 20) {
     )) +
     scale_fill_identity(aesthetics = c("fill", "colour")) +
     theme_538() +
-    scale_y_continuous(limits=c(58,77), breaks=seq(58, 77, by=1)) +
-    scale_x_continuous(limits=c(61,68), breaks=seq(61, 68, by=1)) +
+    # scale_y_continuous(limits=c(58,77), breaks=seq(58, 77, by=1)) +
+    # scale_x_continuous(limits=c(61,68), breaks=seq(61, 68, by=1)) +
+    scale_y_continuous(breaks=seq(50, 80, by=1)) +
+    scale_x_continuous(breaks=seq(50, 80, by=1)) +
     geom_abline(linetype = "dashed", color="grey") +
     labs(
       x = "Expected Completion Pct. (%)",

@@ -28,7 +28,7 @@ get_comp_pct_vs_expected <- function(season) {
            play_type == "pass",
            !is.na(air_yards)) %>%
     group_by(passer_player_id, air_yards, play_type) %>%
-    summarise(actual_pass_completions = n()) %>%
+    dplyr::summarise(actual_pass_completions = n()) %>%
     ungroup()
   
   # calculate total attempts by air yards for player
@@ -42,7 +42,7 @@ get_comp_pct_vs_expected <- function(season) {
       !is.na(air_yards)
     ) %>%
     group_by(passer_player_id, air_yards, play_type) %>%
-    summarise(player_pass_att = n()) %>%
+    dplyr::summarise(player_pass_att = n()) %>%
     ungroup()
   
   # merge attempts to all_pass_completions
@@ -78,13 +78,13 @@ get_comp_pct_vs_expected <- function(season) {
   # sum the expected completions
   pass_comp_sum <-
     group_by(all_expected_comp, passer_player_id) %>%
-    summarise(expected_completions = round(sum(expected_completions), 2)) %>%
+    dplyr::summarise(expected_completions = round(sum(expected_completions), 2)) %>%
     ungroup()
   
   # sum the actual completions
   all_pass_completions <-
     group_by(all_pass_completions, passer_player_id) %>%
-    summarise(
+    dplyr::summarise(
       actual_pass_completions = sum(actual_pass_completions),
       player_pass_att = sum(player_pass_att)
     ) %>%

@@ -89,7 +89,6 @@ fo_drivestats_2019 <-
 #
 # create overall FO drive stat data frame
 #
-library(plyr)
 remove(fo_drivestats_overall)
 fo_drivestats_overall <-
   rbind(
@@ -114,4 +113,3 @@ fo_drivestats_overall <-
     fo_drivestats_2018,
     fo_drivestats_2019
   )
-library(dplyr)

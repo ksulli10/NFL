@@ -12,7 +12,7 @@
 
 # define plot function
 # takes season as input (e.g. "2019") and optional minimal number of attempts
-plot_comp_pct_vs_expected_bar <- function(season, attempts = 20) {
+plot_comp_pct_vs_expected_bar <- function(season = "overall", attempts = 20) {
   # instantiate the function
   source("Functions/get_comp_pct_vs_expected.R")
   # instantiate the theme
@@ -40,7 +40,8 @@ plot_comp_pct_vs_expected_bar <- function(season, attempts = 20) {
       axis.text.y = element_blank()
     ) +
     geom_hline(yintercept = 0) +
-    scale_y_continuous(limits=c(-8,10), breaks=seq(-8, 10, by=1)) +
+    # scale_y_continuous(limits=c(-8,10), breaks=seq(-8, 10, by=1)) +
+    scale_y_continuous(breaks=seq(-8, 10, by=1)) +
     labs(
       x = "",
       y = "Depth-Adjusted CPOE (%)",
