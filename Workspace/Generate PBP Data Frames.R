@@ -12,6 +12,7 @@ pbp_2012 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/ma
 pbp_2011 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/play_by_play_data/regular_season/reg_pbp_2011.csv")
 pbp_2010 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/play_by_play_data/regular_season/reg_pbp_2010.csv")
 pbp_2009 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/play_by_play_data/regular_season/reg_pbp_2009.csv")
+pbp_2019_pre <- scrape_season_play_by_play(2019, type="pre")
 
 # create add_series_success function
 source("Functions/add_series_success.R")
@@ -30,11 +31,11 @@ pbp_2012 <- add_series_success(2012)
 pbp_2011 <- add_series_success(2011)
 pbp_2010 <- add_series_success(2010)
 pbp_2009 <- add_series_success(2009)
+pbp_2019_pre <- add_series_success("2019_pre")
 
 #
 # create overall pbp data frame
 #
-library(plyr)
 remove(pbp_overall)
 pbp_overall <-
   rbind.fill(
@@ -50,4 +51,3 @@ pbp_overall <-
     pbp_2018,
     pbp_2019
   )
-detach(package:plyr)

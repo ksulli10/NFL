@@ -12,9 +12,10 @@ pbp_2012 <- readRDS("Data/pbp_2012.rds")
 pbp_2011 <- readRDS("Data/pbp_2011.rds")
 pbp_2010 <- readRDS("Data/pbp_2010.rds")
 pbp_2009 <- readRDS("Data/pbp_2009.rds")
+pbp_2019_pre <- readRDS("Data/pbp_2019_pre.rds")
 
 #
-# add season column to FO drive stats data frames
+# add season column to pbp data frames
 #
 pbp_2009 <-
   mutate(pbp_2009, Season = "2009") %>%
@@ -48,6 +49,9 @@ pbp_2018 <-
   select(Season, everything())
 pbp_2019 <-
   mutate(pbp_2019, Season = "2019") %>%
+  select(Season, everything())
+pbp_2019_pre <-
+  mutate(pbp_2019_pre, Season = "2019") %>%
   select(Season, everything())
 
 #
