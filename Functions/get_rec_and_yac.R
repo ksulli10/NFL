@@ -24,7 +24,7 @@ get_rec_and_yac <- function(season) {
   output <-
     filter(pbp_input, play_type == "pass", !is.na(yards_after_catch)) %>%
     group_by(receiver_player_id) %>%
-    summarise(
+    dplyr::summarise(
       receptions = n(),
       total_yac = sum(yards_after_catch),
       yac_per_reception = round(total_yac / receptions, 3)
@@ -41,6 +41,7 @@ get_rec_and_yac <- function(season) {
   output <-
     select(output,
            receiver_player_id,
+           Season,
            Team,
            name,
            # Pos,

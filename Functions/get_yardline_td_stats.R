@@ -29,7 +29,7 @@ get_yardline_td_stats <- function(season = "overall") {
       ) %>%
         select(yardline_100, play_type, rush_touchdown) %>%
         group_by(yardline_100) %>%
-        count(rush_touchdown) %>%
+        dplyr::count(rush_touchdown) %>%
         mutate(rush_tds = n) %>%
         select(yardline_100, rush_tds),
       by = "yardline_100"
@@ -47,7 +47,7 @@ get_yardline_td_stats <- function(season = "overall") {
       ) %>%
         select(yardline_100, play_type, pass_touchdown) %>%
         group_by(yardline_100) %>%
-        count(pass_touchdown) %>%
+        dplyr::count(pass_touchdown) %>%
         mutate(pass_tds = n) %>%
         select(yardline_100, pass_tds),
       by = "yardline_100"
@@ -62,7 +62,7 @@ get_yardline_td_stats <- function(season = "overall") {
              half_seconds_remaining >= 60) %>%
         select(yardline_100, play_type) %>%
         group_by(yardline_100) %>%
-        count(play_type) %>%
+        dplyr::count(play_type) %>%
         mutate(rush_att = n) %>%
         select(yardline_100, rush_att),
       by = "yardline_100"
@@ -77,7 +77,7 @@ get_yardline_td_stats <- function(season = "overall") {
              half_seconds_remaining >= 60) %>%
         select(yardline_100, play_type) %>%
         group_by(yardline_100) %>%
-        count(play_type) %>%
+        dplyr::count(play_type) %>%
         mutate(pass_att = n) %>%
         select(yardline_100, pass_att),
       by = "yardline_100"

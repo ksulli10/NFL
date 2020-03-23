@@ -29,7 +29,7 @@ get_yardline_rec_td_stats <- function(season = "overall") {
       ) %>%
         select(yardline_100, play_type, pass_touchdown, air_yards) %>%
         group_by(yardline_100, air_yards) %>%
-        count(pass_touchdown) %>%
+        dplyr::count(pass_touchdown) %>%
         mutate(rec_tds = n) %>%
         select(yardline_100, touchdown_air_yards = air_yards, rec_tds),
       by = "yardline_100"
@@ -47,7 +47,7 @@ get_yardline_rec_td_stats <- function(season = "overall") {
       ) %>%
         select(yardline_100, play_type, air_yards) %>%
         group_by(yardline_100, air_yards) %>%
-        count(play_type) %>%
+        dplyr::count(play_type) %>%
         mutate(rec_att = n) %>%
         select(yardline_100, attempt_air_yards = air_yards, rec_att),
       by = c("yardline_100", "touchdown_air_yards" = "attempt_air_yards")

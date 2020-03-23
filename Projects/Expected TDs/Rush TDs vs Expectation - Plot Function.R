@@ -19,6 +19,8 @@ plot_rush_td_vs_expected <- function(season, attempts = 20) {
   rush_td_data <- get_rush_td_vs_expected(season)
   # filter the data to min. attempts
   rush_td_data <- filter(rush_td_data, player_rush_att >= attempts)
+  # remove NA player names (keeps only players that made roster)
+  rush_td_data <- filter(rush_td_data,!is.na(name))
   
   ggplot(
     data = rush_td_data,

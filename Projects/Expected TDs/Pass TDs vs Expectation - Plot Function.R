@@ -19,6 +19,8 @@ plot_pass_td_vs_expected <- function(season, attempts = 20) {
   pass_td_data <- get_pass_td_vs_expected(season)
   # filter the data to min. attempts
   pass_td_data <- filter(pass_td_data, player_pass_att >= attempts)
+  # remove NA player names (keeps only players that made roster)
+  pass_td_data <- filter(pass_td_data,!is.na(name))
   
   ggplot(
     data = pass_td_data,

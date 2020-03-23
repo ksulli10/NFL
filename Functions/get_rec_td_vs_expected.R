@@ -27,7 +27,7 @@ get_rec_td_vs_expected <- function(season) {
            pass_touchdown == 1,
            play_type == "pass",!is.na(air_yards)) %>%
     group_by(receiver_player_id, yardline_100, air_yards, play_type) %>%
-    summarise(actual_rec_tds = n()) %>%
+    dplyr::summarise(actual_rec_tds = n()) %>%
     ungroup(all_att_by_yardline)
   
   # calculate total attempts by yard line and air yards for player
@@ -35,7 +35,7 @@ get_rec_td_vs_expected <- function(season) {
     filter(pbp_input,
            play_type == "pass",!is.na(air_yards)) %>%
     group_by(receiver_player_id, yardline_100, air_yards, play_type) %>%
-    summarise(player_rec_att = n()) %>%
+    dplyr::summarise(player_rec_att = n()) %>%
     ungroup(all_att_by_yardline) %>%
     na.omit
   
@@ -78,13 +78,13 @@ get_rec_td_vs_expected <- function(season) {
   # sum the expected TDs
   rec_td_sum <-
     group_by(all_expected_tds_by_yardline, receiver_player_id) %>%
-    summarise(expected_rec_tds = round(sum(expected_rec_tds), 2)) %>%
+    dplyr::summarise(expected_rec_tds = round(sum(expected_rec_tds), 2)) %>%
     ungroup(rec_td_sum)
   
   # sum the actual TDs
   all_rec_tds <-
     group_by(all_rec_tds, receiver_player_id) %>%
-    summarise(
+    dplyr::summarise(
       actual_rec_tds = sum(actual_rec_tds),
       player_rec_att = sum(player_rec_att)
     ) %>%
@@ -105,7 +105,8 @@ get_rec_td_vs_expected <- function(season) {
   
   # create data frame containing all player IDs for the given season
   source("Functions/get_player_id_list.R")
-  player_id_list <- get_player_id_list(season)
+  season_limited <- substr(season, 1, 4)
+  player_id_list <- get_player_id_list(season_limited)
   
   # remove duplicates
   player_id_list <-
@@ -118,7 +119,7 @@ get_rec_td_vs_expected <- function(season) {
               by = c("receiver_player_id" = "playerID"))  %>%
     select(
       receiver_player_id,
-      # Season,
+      Season,
       Team,
       # Pos,
       name,

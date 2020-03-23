@@ -19,6 +19,8 @@ plot_rec_td_vs_expected <- function(season, attempts = 20) {
   rec_td_data <- get_rec_td_vs_expected(season)
   # filter the data to min. attempts
   rec_td_data <- filter(rec_td_data, player_rec_att >= attempts)
+  # remove NA player names (keeps only players that made roster)
+  rec_td_data <- filter(rec_td_data,!is.na(name))
   
   ggplot(
     data = rec_td_data,

@@ -109,7 +109,8 @@ get_comp_pct_vs_expected <- function(season) {
   
   # create data frame containing all player IDs for the given season
   source("Functions/get_player_id_list.R")
-  player_id_list <- get_player_id_list(season)
+  season_limited <- substr(season, 1, 4)
+  player_id_list <- get_player_id_list(season_limited)
   
   # remove duplicates
   player_id_list <-
@@ -122,7 +123,7 @@ get_comp_pct_vs_expected <- function(season) {
               by = c("passer_player_id" = "playerID"))  %>%
     select(
       passer_player_id,
-      # Season,
+      Season,
       Team,
       # Pos,
       name,

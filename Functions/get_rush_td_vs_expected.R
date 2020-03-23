@@ -27,7 +27,7 @@ get_rush_td_vs_expected <- function(season) {
            rush_touchdown == 1,
            play_type == "run") %>%
     group_by(rusher_player_id, yardline_100, play_type) %>%
-    summarise(actual_rush_tds = n()) %>%
+    dplyr::summarise(actual_rush_tds = n()) %>%
     ungroup(all_att_by_yardline)
   
   # calculate total attempts by yard line for player
@@ -35,7 +35,7 @@ get_rush_td_vs_expected <- function(season) {
     filter(pbp_input,
            play_type == "run") %>%
     group_by(rusher_player_id, yardline_100, play_type) %>%
-    summarise(player_rush_att = n()) %>%
+    dplyr::summarise(player_rush_att = n()) %>%
     ungroup(all_att_by_yardline)
   
   # merge to all_rec_tds
@@ -71,13 +71,13 @@ get_rush_td_vs_expected <- function(season) {
   # sum the expected TDs
   rush_td_sum <-
     group_by(all_expected_tds_by_yardline, rusher_player_id) %>%
-    summarise(expected_rush_tds = round(sum(expected_rush_tds), 2)) %>%
+    dplyr::summarise(expected_rush_tds = round(sum(expected_rush_tds), 2)) %>%
     ungroup(rush_td_sum)
   
   # sum the actual TDs
   all_rush_tds <-
     group_by(all_rush_tds, rusher_player_id) %>%
-    summarise(
+    dplyr::summarise(
       actual_rush_tds = sum(actual_rush_tds),
       player_rush_att = sum(player_rush_att)
     ) %>%
@@ -98,7 +98,8 @@ get_rush_td_vs_expected <- function(season) {
   
   # create data frame containing all player IDs for the given season
   source("Functions/get_player_id_list.R")
-  player_id_list <- get_player_id_list(season)
+  season_limited <- substr(season, 1, 4)
+  player_id_list <- get_player_id_list(season_limited)
   
   # remove duplicates
   player_id_list <-
@@ -111,7 +112,7 @@ get_rush_td_vs_expected <- function(season) {
               by = c("rusher_player_id" = "playerID"))  %>%
     select(
       rusher_player_id,
-      # Season,
+      Season,
       Team,
       # Pos,
       name,
