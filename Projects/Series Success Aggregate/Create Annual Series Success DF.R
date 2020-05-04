@@ -1,3 +1,6 @@
+# instantiate the function
+source("Functions/series_success_aggregate.R")
+
 ss_2019 <-
   data.frame(
     season = "2019",
@@ -69,6 +72,7 @@ ss_2009 <-
 #
 # create overall ss data frame
 #
+remove(ss_overall)
 ss_overall <-
   rbind.fill(
     ss_2009,

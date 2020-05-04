@@ -3,6 +3,8 @@
 # remotes::install_github("rstudio/gt")
 
 library(nflscrapR)
+library(nflfastR)
+
 library(ggplot2)
 library(ggimage)
 

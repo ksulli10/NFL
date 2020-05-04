@@ -22,7 +22,7 @@ plot_all_series_success <-
       ggplot(aes(x = season, y = value)) + 
       geom_line(aes(y = series_success_1_15, col="1st and 15", group="1st and 15"), size=1) +
       geom_point(aes(y = series_success_1_15, col="1st and 15"), size=3) +
-      geom_line(aes(y = series_success_2_10, col="2nd and 10", group="1st and 15"), size=1) +
+      geom_line(aes(y = series_success_2_10, col="2nd and 10", group="2nd and 10"), size=1) +
       geom_point(aes(y = series_success_2_10, col="2nd and 10"), size=3) +
       theme_538() +
       theme(
