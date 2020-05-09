@@ -23,15 +23,15 @@ net_ppd_vs_dropback_epa <- function(season = "overall") {
   # create EPA per Dropback data
   epa_per_dropback <-
     select(filter(pbp_input, qb_dropback == 1),
-           Season, posteam, epa) %>%
+           season, posteam, epa) %>%
     filter(!is.na(epa)) %>%
-    group_by(Season, posteam) %>%
+    group_by(season, posteam) %>%
     summarise(epa_per_dropback = sum(epa)/n())
   
   # specify team
-  output <- select(drivestats_input, Season, Team, NET_PPD) %>%
+  output <- select(drivestats_input, season, Team, NET_PPD) %>%
     inner_join(epa_per_dropback,
-               by = c("Season" = "Season", "Team" = "posteam"))
+               by = c("season" = "season", "Team" = "posteam"))
 
   # plot
   ggplot() +

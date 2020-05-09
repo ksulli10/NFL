@@ -12,47 +12,15 @@ pbp_2012 <- readRDS("Data/pbp_2012.rds")
 pbp_2011 <- readRDS("Data/pbp_2011.rds")
 pbp_2010 <- readRDS("Data/pbp_2010.rds")
 pbp_2009 <- readRDS("Data/pbp_2009.rds")
-pbp_2019_pre <- readRDS("Data/pbp_2019_pre.rds")
-
-#
-# add season column to pbp data frames
-#
-pbp_2009 <-
-  mutate(pbp_2009, Season = "2009") %>%
-  select(Season, everything())
-pbp_2010 <-
-  mutate(pbp_2010, Season = "2010") %>%
-  select(Season, everything())
-pbp_2011 <-
-  mutate(pbp_2011, Season = "2011") %>%
-  select(Season, everything())
-pbp_2012 <-
-  mutate(pbp_2012, Season = "2012") %>%
-  select(Season, everything())
-pbp_2013 <-
-  mutate(pbp_2013, Season = "2013") %>%
-  select(Season, everything())
-pbp_2014 <-
-  mutate(pbp_2014, Season = "2014") %>%
-  select(Season, everything())
-pbp_2015 <-
-  mutate(pbp_2015, Season = "2015") %>%
-  select(Season, everything())
-pbp_2016 <-
-  mutate(pbp_2016, Season = "2016") %>%
-  select(Season, everything())
-pbp_2017 <-
-  mutate(pbp_2017, Season = "2017") %>%
-  select(Season, everything())
-pbp_2018 <-
-  mutate(pbp_2018, Season = "2018") %>%
-  select(Season, everything())
-pbp_2019 <-
-  mutate(pbp_2019, Season = "2019") %>%
-  select(Season, everything())
-pbp_2019_pre <-
-  mutate(pbp_2019_pre, Season = "2019") %>%
-  select(Season, everything())
+pbp_2008 <- readRDS("Data/pbp_2008.rds")
+pbp_2007 <- readRDS("Data/pbp_2007.rds")
+pbp_2006 <- readRDS("Data/pbp_2006.rds")
+pbp_2005 <- readRDS("Data/pbp_2005.rds")
+pbp_2004 <- readRDS("Data/pbp_2004.rds")
+pbp_2003 <- readRDS("Data/pbp_2003.rds")
+pbp_2002 <- readRDS("Data/pbp_2002.rds")
+pbp_2001 <- readRDS("Data/pbp_2001.rds")
+pbp_2000 <- readRDS("Data/pbp_2000.rds")
 
 #
 # create overall pbp data frame
@@ -60,6 +28,15 @@ pbp_2019_pre <-
 remove(pbp_overall)
 pbp_overall <-
   rbind.fill(
+    pbp_2000,
+    pbp_2001,
+    pbp_2002,
+    pbp_2003,
+    pbp_2004,
+    pbp_2005,
+    pbp_2006,
+    pbp_2007,
+    pbp_2008,
     pbp_2009,
     pbp_2010,
     pbp_2011,

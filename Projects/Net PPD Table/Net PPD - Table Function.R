@@ -1,7 +1,7 @@
 ####
 #### Requirements:
-####    1.  nflscrapR rosters data frame
-####        (named "rosters_####" e.g. "rosters_2018")
+####    1.  Football Outsiders Drive Stats data frame
+####        (named "fo_drivestats_#### e.g. "fo_drivestats_2018")
 ####
 ####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####
