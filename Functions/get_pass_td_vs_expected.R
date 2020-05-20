@@ -2,8 +2,8 @@
 #### Requirements:
 ####    1.  nflscrapR play-by-play data frame
 ####        (named "pbp_####" e.g. "pbp_2018")
-####    2.  nflscrapR playerstats data frame
-####        (named "playerstats_####" e.g. "playerstats_2018")
+####    2.  nflscrapR rosters data frame
+####        (named "rosters_####" e.g. "rosters_overall")
 ####
 ####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####
@@ -19,7 +19,7 @@ get_pass_td_vs_expected <- function(season) {
   # these are used for calculating the expectation
   source("Functions/get_yardline_pass_td_stats.R")
   yardline_pass_td_stats_overall <-
-    get_yardline_pass_td_stats("overall")
+    get_yardline_pass_td_stats(season)
   
   # calculate pass tds per player by yard line and air yards
   all_pass_tds <-

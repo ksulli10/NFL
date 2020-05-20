@@ -5,7 +5,7 @@ source("Workspace/Load Libraries.R")
 source("Workspace/Load RDS into PBP DF.R")
 
 # load local Player Stats RDS into data frames
-source("Workspace/Load RDS into Player Stats DF.R")
+# source("Workspace/Load RDS into Player Stats DF.R")
 
 # load local Rosters RDS into data frames
 source("Workspace/Load RDS into Rosters DF.R")

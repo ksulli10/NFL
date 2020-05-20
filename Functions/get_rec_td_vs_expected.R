@@ -19,7 +19,7 @@ get_rec_td_vs_expected <- function(season) {
   # these are used for calculating the expectation
   source("Functions/get_yardline_rec_td_stats.R")
   yardline_rec_td_stats_overall <-
-    get_yardline_rec_td_stats("overall")
+    get_yardline_rec_td_stats(season)
   
   # calculate rec tds per player by yard line and air yards
   all_rec_tds <-

@@ -2,19 +2,19 @@
 #### Requirements:
 ####    1.  nflscrapR play-by-play data frame
 ####        (named "pbp_####" e.g. "pbp_2018")
-####    2.  nflscrapR playerstats data frame
-####        (named "playerstats_####" e.g. "playerstats_2018")
-####    3.  nflscrapR rosters data frame
-####        (named "rosters_####" e.g. "rosters_2018")
+####    2.  nflscrapR rosters data frame
+####        (named "rosters_####" e.g. "rosters_overall")
 ####
 ####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####
 
 # define plot function
 # takes season as input (e.g. "2019") and optional minimal number of attempts
-plot_pass_td_vs_expected <- function(season, attempts = 20) {
+plot_pass_td_vs_expected <- function(season, attempts = 200) {
   # instantiate the function
   source("Functions/get_pass_td_vs_expected.R")
+  # instantiate the theme
+  source("Functions/theme_538.R")
   # get the data
   pass_td_data <- get_pass_td_vs_expected(season)
   # filter the data to min. attempts

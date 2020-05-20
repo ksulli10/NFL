@@ -19,7 +19,7 @@ get_rush_td_vs_expected <- function(season) {
   # these are used for calculating the expectation
   source("Functions/get_yardline_rush_td_stats.R")
   yardline_rush_td_stats_overall <-
-    get_yardline_rush_td_stats("overall")
+    get_yardline_rush_td_stats(season)
   
   # calculate rush tds per player by yard line
   all_rush_tds <-

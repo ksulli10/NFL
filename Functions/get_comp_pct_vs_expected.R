@@ -2,8 +2,8 @@
 #### Requirements:
 ####    1.  nflscrapR play-by-play data frame
 ####        (named "pbp_####" e.g. "pbp_2018")
-####    2.  nflscrapR playerstats data frame
-####        (named "playerstats_####" e.g. "playerstats_2018")
+####    2.  nflscrapR rosters data frame
+####        (named "rosters_####" e.g. "rosters_overall")
 ####
 ####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####

@@ -2,9 +2,7 @@
 #### Requirements:
 ####    1.  nflscrapR play-by-play data frame
 ####        (named "pbp_####" e.g. "pbp_2018")
-####    2.  nflscrapR playerstats data frame
-####        (named "playerstats_####" e.g. "playerstats_2018")
-####    3.  nflscrapR rosters data frame
+####    2.  nflscrapR rosters data frame
 ####        (named "rosters_####" e.g. "rosters_overall")
 ####
 ####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
@@ -15,6 +13,8 @@
 plot_rec_td_vs_expected <- function(season, attempts = 100) {
   # instantiate the function
   source("Functions/get_rec_td_vs_expected.R")
+    # instantiate the theme
+  source("Functions/theme_538.R")
   # get the data
   rec_td_data <- get_rec_td_vs_expected(season)
   # filter the data to min. attempts
