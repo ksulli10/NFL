@@ -107,36 +107,24 @@ get_comp_pct_vs_expected <- function(season) {
     ) %>%
     filter(passer_player_id != "0")
   
-  # create data frame containing all player IDs for the given season
-  source("Functions/get_player_id_list.R")
-  season_limited <- substr(season, 1, 4)
-  player_id_list <- get_player_id_list(season_limited)
-  
-  # remove duplicates
-  player_id_list <-
-    distinct(player_id_list, playerID, .keep_all = TRUE)
-  
   # add player names
   output <-
     left_join(output,
-              player_id_list,
-              by = c("passer_player_id" = "playerID"))  %>%
+              filter(rosters_overall, team.season==season),
+              by = c("passer_player_id" = "teamPlayers.gsisId"))  %>%
     select(
       passer_player_id,
-      Season,
-      Team,
-      # Pos,
-      name,
-      player_pass_att,
-      actual_completions = actual_pass_completions,
-      actual_comp_pct,
-      expected_completions,
-      expected_comp_pct,
+      "season" = team.season,
+      "team" = team.abbr,
+      "pos" = teamPlayers.position,
+      "name" = teamPlayers.displayName,
+      "pass_att" = player_pass_att,
+      "completions" = actual_pass_completions,
+      "comp_pct" = actual_comp_pct,
+      "exp_completions" = expected_completions,
+      "exp_comp_pct" = expected_comp_pct,
       cpoe
     )
-  
-  # # filter NAs
-  # output <- filter(output, !is.na(Season))
   
   # return completed data frame
   return(output)

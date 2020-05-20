@@ -96,35 +96,23 @@ get_rush_td_vs_expected <- function(season) {
     ) %>%
     filter(rusher_player_id != "0")
   
-  # create data frame containing all player IDs for the given season
-  source("Functions/get_player_id_list.R")
-  season_limited <- substr(season, 1, 4)
-  player_id_list <- get_player_id_list(season_limited)
-  
-  # remove duplicates
-  player_id_list <-
-    distinct(player_id_list, playerID, .keep_all = TRUE)
-  
   # add player names
   output <-
     left_join(output,
-              player_id_list,
-              by = c("rusher_player_id" = "playerID"))  %>%
+              filter(rosters_overall, team.season==season),
+              by = c("rusher_player_id" = "teamPlayers.gsisId"))  %>%
     select(
       rusher_player_id,
-      Season,
-      Team,
-      # Pos,
-      name,
-      player_rush_att,
-      expected_rush_tds,
-      actual_rush_tds,
-      tds_over_expectation,
-      tds_over_expectation_per_att
+      "season" = team.season,
+      "team" = team.abbr,
+      "pos" = teamPlayers.position,
+      "name" = teamPlayers.displayName,
+      "rush_att" = player_rush_att,
+      "exp_tds" = expected_rush_tds,
+      "tds" = actual_rush_tds,
+      "tds_over_exp" = tds_over_expectation,
+      "tdoe_per_att" = tds_over_expectation_per_att
     )
-  
-  # # filter NAs
-  # output <- filter(output,!is.na(Season))
   
   # return completed data frame
   return(output)

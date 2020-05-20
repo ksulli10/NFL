@@ -18,18 +18,31 @@ plot_pass_td_vs_expected <- function(season, attempts = 20) {
   # get the data
   pass_td_data <- get_pass_td_vs_expected(season)
   # filter the data to min. attempts
-  pass_td_data <- filter(pass_td_data, player_pass_att >= attempts)
+  pass_td_data <- filter(pass_td_data, pass_att >= attempts)
   # remove NA player names (keeps only players that made roster)
   pass_td_data <- filter(pass_td_data,!is.na(name))
   
-  ggplot(
-    data = pass_td_data,
-    mapping = aes(x = expected_pass_tds, y = actual_pass_tds, label = name)
-  ) +
-    # theme_538() +
-    geom_point() +
-    geom_text(size = 3, nudge_y = -0.5, check_overlap=TRUE) +
-    geom_abline(linetype = "dashed")
+  ggplot(data = pass_td_data,
+         mapping = aes(x = exp_tds, y = tds, label = name)) +
+    theme_538() +
+    geom_point(aes(color = if_else(tds_over_exp >= 0, "#2c7bb6", "#d7181c")),
+               size = 3) +
+    geom_text_repel(aes(
+      label = name,
+      color = if_else(tds_over_exp >= 0, "#2c7bb6", "#d7181c")
+    )) +
+    scale_fill_identity(aesthetics = c("fill", "colour")) +
+    geom_abline(linetype = "dashed") +
+    labs(
+      x = "Expected Touchdowns",
+      y = "Actual Touchdowns",
+      title = paste("Touchdowns over Expectation (",
+                    season,
+                    ")",
+                    sep = ""),
+      subtitle = paste("Min.", attempts, "Pass Attempts"),
+      caption = "Figure: @thePatsStats | Data: @nflscrapR"
+    )
   # coord_fixed() +
   # scale_x_continuous(limit = c(0, NA)) +
   # scale_y_continuous(limit = c(0, NA))

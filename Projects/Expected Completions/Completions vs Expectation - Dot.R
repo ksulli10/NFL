@@ -5,7 +5,7 @@
 ####    2.  nflscrapR playerstats data frame
 ####        (named "playerstats_####" e.g. "playerstats_2018")
 ####    3.  nflscrapR rosters data frame
-####        (named "rosters_####" e.g. "rosters_2018")
+####        (named "rosters_####" e.g. "rosters_overall")
 ####
 ####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####
@@ -22,19 +22,19 @@ plot_comp_pct_vs_expected_dot <-
     comp_pct_data <- get_comp_pct_vs_expected(season)
     # filter the data to min. attempts
     comp_pct_data <-
-      filter(comp_pct_data, player_pass_att >= attempts)
+      filter(comp_pct_data, pass_att >= attempts)
     # remove NA player names (keeps only players that made roster)
     comp_pct_data <- filter(comp_pct_data,!is.na(name))
     
     # plot the data
     comp_pct_data %>%
-      ggplot(aes(x = expected_comp_pct, y = actual_comp_pct)) +
+      ggplot(aes(x = exp_comp_pct, y = comp_pct)) +
       geom_point(aes(color = if_else(cpoe >= 0, "#2c7bb6", "#d7181c")),
                  size = 3) +
       geom_text_repel(aes(
         label = name,
-        color = if_else(cpoe >= 0, "#2c7bb6", "#d7181c"),
-        # hjust = if_else(cpoe > 0,-0.2, 1.2)
+        color = if_else(cpoe >= 0, "#2c7bb6", "#d7181c")
+        #, hjust = if_else(cpoe > 0,-0.2, 1.2)
       )) +
       scale_fill_identity(aesthetics = c("fill", "colour")) +
       theme_538() +

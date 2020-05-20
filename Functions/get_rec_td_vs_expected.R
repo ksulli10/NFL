@@ -103,35 +103,23 @@ get_rec_td_vs_expected <- function(season) {
     ) %>%
     filter(receiver_player_id != "0")
   
-  # create data frame containing all player IDs for the given season
-  source("Functions/get_player_id_list.R")
-  season_limited <- substr(season, 1, 4)
-  player_id_list <- get_player_id_list(season_limited)
-  
-  # remove duplicates
-  player_id_list <-
-    distinct(player_id_list, playerID, .keep_all = TRUE)
-  
   # add player names
   output <-
     left_join(output,
-              player_id_list,
-              by = c("receiver_player_id" = "playerID"))  %>%
+              filter(rosters_overall, team.season==season),
+              by = c("receiver_player_id" = "teamPlayers.gsisId"))  %>%
     select(
       receiver_player_id,
-      Season,
-      Team,
-      # Pos,
-      name,
-      player_rec_att,
-      expected_rec_tds,
-      actual_rec_tds,
-      tds_over_expectation,
-      tds_over_expectation_per_att
+      "season" = team.season,
+      "team" = team.abbr,
+      "pos" = teamPlayers.position,
+      "name" = teamPlayers.displayName,
+      "rec_att" = player_rec_att,
+      "exp_tds" = expected_rec_tds,
+      "tds" = actual_rec_tds,
+      "tds_over_exp" = tds_over_expectation,
+      "tdoe_per_att" = tds_over_expectation_per_att
     )
-  
-  # # filter NAs
-  # output <- filter(output, !is.na(Season))
   
   # return completed data frame
   return(output)

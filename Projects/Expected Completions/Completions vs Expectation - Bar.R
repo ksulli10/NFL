@@ -5,7 +5,7 @@
 ####    2.  nflscrapR playerstats data frame
 ####        (named "playerstats_####" e.g. "playerstats_2018")
 ####    3.  nflscrapR rosters data frame
-####        (named "rosters_####" e.g. "rosters_2018")
+####        (named "rosters_####" e.g. "rosters_overall")
 ####
 ####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####
@@ -13,7 +13,7 @@
 # define plot function
 # takes season as input (e.g. "2019") and optional minimal number of attempts
 plot_comp_pct_vs_expected_bar <-
-  function(season = "overall", attempts = 20) {
+  function(season = "overall", attempts = 200) {
     # instantiate the function
     source("Functions/get_comp_pct_vs_expected.R")
     # instantiate the theme
@@ -22,7 +22,7 @@ plot_comp_pct_vs_expected_bar <-
     comp_pct_data <- get_comp_pct_vs_expected(season)
     # filter the data to min. attempts
     comp_pct_data <-
-      filter(comp_pct_data, player_pass_att >= attempts)
+      filter(comp_pct_data, pass_att > attempts)
     # remove NA player names (keeps only players that made roster)
     comp_pct_data <- filter(comp_pct_data,!is.na(name))
     
@@ -45,7 +45,7 @@ plot_comp_pct_vs_expected_bar <-
       scale_y_continuous(breaks = seq(-10, 15, by = 1)) +
       labs(
         x = "",
-        y = "Depth-Adjusted CPOE (%)",
+        y = "Depth-Adjusted cpoe (%)",
         title = paste(
           "Depth-Adjusted Completion Percentage over Expectation (",
           season,
