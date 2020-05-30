@@ -1,4 +1,8 @@
 ####
+#### WARNING: This is an experimental file and is currently non-functional.
+####
+
+####
 #### Requirements:
 ####    1.  next-gen-scrapy tracking data frame
 ####        (named "tracking_####" e.g. "tracking_2018")

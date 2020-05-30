@@ -1,16 +1,22 @@
 ####
+####
+#### WARNING: Will have issues with team names (e.g. "LV" vs "OAK").
+####
+####
+
+
 #### Requirements:
 ####    1.  nflscrapR play-by-play data frame
 ####        (named "pbp_####" e.g. "pbp_2018")
-####    2.  nflscrapR rosters data frame
-####        (named "rosters_####" e.g. "rosters_2018")
+####    2.  Football Outsiders drive stats data frame
+####        (named "fo_drivestats_####" e.g. "fo_drivestats_2019")
 ####
 ####    * Run "Local Load Setup.R" to load the necessary files from "Data/" into data frames
 ####
 
 # define plot function
-# takes season as input (e.g. "2019")
-net_ppd_vs_dropback_epa <- function(season = "overall") {
+# takes season (e.g. "2019") and team abbreviation (e.g. "NE") as input
+net_ppd_vs_dropback_epa <- function(season, team = "NE") {
   library(ggrepel)
   
   # create data frame variables based on season input
@@ -26,33 +32,33 @@ net_ppd_vs_dropback_epa <- function(season = "overall") {
            season, posteam, epa) %>%
     filter(!is.na(epa)) %>%
     group_by(season, posteam) %>%
-    summarise(epa_per_dropback = sum(epa)/n())
+    dplyr::summarise(epa_per_dropback = mean(epa))
   
   # specify team
-  output <- select(drivestats_input, season, Team, NET_PPD) %>%
+  output <- select(mutate(drivestats_input, Season = as.numeric(Season)), Season, Team, NET_PPD) %>%
     inner_join(epa_per_dropback,
-               by = c("season" = "season", "Team" = "posteam"))
+               by = c("Season" = "season", "Team" = "posteam"))
 
   # plot
   ggplot() +
     geom_point(
-      data = filter(output, Team != "NE"),
+      data = filter(output, Team != team),
       mapping = aes(x = epa_per_dropback, y = NET_PPD),
       color = "Black"
     ) +
     geom_point(
-      data = filter(output, Team == "NE"),
+      data = filter(output, Team == team),
       mapping = aes(x = epa_per_dropback, y = NET_PPD),
       shape = 23,
       size = 3,
       fill = "Blue"
     ) +
     geom_text_repel(
-      data = filter(output, Team == "NE"),
+      data = filter(output, Team == team),
       mapping = aes(
         x = epa_per_dropback,
         y = NET_PPD,
-        label = Season
+        label = paste(team, Season)
       ),
       color = "Blue"
     ) +
@@ -66,7 +72,8 @@ net_ppd_vs_dropback_epa <- function(season = "overall") {
     ) +
     labs(
       title = "Net Points Per Drive vs EPA per Dropback",
-      subtitle = "NFL, 2009-2019",
+      subtitle = paste(team, season),
+      caption = "Figure: @thePatsStats | Data: @nflscrapR",
       x = "EPA per Dropback",
       y = "Net Points Per Drive"
     ) +

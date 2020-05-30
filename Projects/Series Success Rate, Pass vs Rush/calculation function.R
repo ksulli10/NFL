@@ -10,13 +10,13 @@ run_vs_pass_success <- function(season) {
   
   # find series that...
   # ... started inside the opposing 25
-  # ... had WP between 20% and 80%
+  # ... had WP between 10% and 90%
   # ... were not "and goal"
   # ... had more than 5 mins remaining in the game
   output <- filter(
     pbp_input,
-    wp >= .2,
-    wp <= .8,
+    wp >= .1,
+    wp <= .9,
     down == 1,
     yardline_100 <= 25,
     goal_to_go == 0,
@@ -30,7 +30,7 @@ run_vs_pass_success <- function(season) {
     inner_join(pbp_input, output, by = c("game_id", "series", "series_success")) %>%
     filter(play_type == "pass" | play_type == "run") %>% 
     group_by(game_id, series) %>% 
-    summarise("total_count"=n())
+    dplyr::summarise("total_count"=n())
   
   
   # remove >= 4 plays
@@ -49,7 +49,7 @@ run_vs_pass_success <- function(season) {
   play_sample <-
     inner_join(pbp_input, output, by = c("game_id", "series", "series_success")) %>%
     group_by(game_id, series, play_type) %>% 
-    summarise("sub_count"=n()) %>% 
+    dplyr::summarise("sub_count"=n()) %>% 
     filter(play_type == "pass" | play_type == "run")
   
   
@@ -66,6 +66,6 @@ run_vs_pass_success <- function(season) {
   output <- group_by(output, play_type, percentage) %>% 
     summarise(series_success_rate = mean(series_success))
   
-  
+  # return output
   return(output)
 }

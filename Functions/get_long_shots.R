@@ -16,8 +16,8 @@ get_long_shots <- function(season) {
   # grab all plays fitting the specified conditions
   all_plays <- filter(
     pbp_input,
-    .2 < wp,
-    wp < .8,
+    .1 < wp,
+    wp < .9,
     yardline_100 > 20,
     game_seconds_remaining > 300,
     down == 2,
@@ -28,8 +28,8 @@ get_long_shots <- function(season) {
   # grab all long pass plays fitting the specified conditions
   long_pass_plays <- filter(
     pbp_input,
-    .2 < wp,
-    wp < .8,
+    .1 < wp,
+    wp < .9,
     yardline_100 > 20,
     game_seconds_remaining > 300,
     down == 2,
@@ -41,8 +41,8 @@ get_long_shots <- function(season) {
   # grab all medium pass plays fitting the specified conditions
   medium_pass_plays <- filter(
     pbp_input,
-    .2 < wp,
-    wp < .8,
+    .1 < wp,
+    wp < .9,
     yardline_100 > 20,
     game_seconds_remaining > 300,
     down == 2,
@@ -55,8 +55,8 @@ get_long_shots <- function(season) {
   # grab all short pass plays fitting the specified conditions
   short_pass_plays <- filter(
     pbp_input,
-    .2 < wp,
-    wp < .8,
+    .1 < wp,
+    wp < .9,
     yardline_100 > 20,
     game_seconds_remaining > 300,
     down == 2,
@@ -68,8 +68,8 @@ get_long_shots <- function(season) {
   # grab all run plays fitting the specified conditions
   run_plays <- filter(
     pbp_input,
-    .2 < wp,
-    wp < .8,
+    .1 < wp,
+    wp < .9,
     yardline_100 > 20,
     game_seconds_remaining > 300,
     down == 2,
