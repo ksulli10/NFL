@@ -1,6 +1,7 @@
 #
 # set up guga PBP data since 2000
 #
+pbp_2020 <- readRDS(url('https://raw.githubusercontent.com/guga31bb/nflfastR-data/master/data/play_by_play_2020.rds'))
 pbp_2019 <- readRDS(url('https://raw.githubusercontent.com/guga31bb/nflfastR-data/master/data/play_by_play_2019.rds'))
 pbp_2018 <- readRDS(url('https://raw.githubusercontent.com/guga31bb/nflfastR-data/master/data/play_by_play_2018.rds'))
 pbp_2017 <- readRDS(url('https://raw.githubusercontent.com/guga31bb/nflfastR-data/master/data/play_by_play_2017.rds'))
@@ -47,5 +48,6 @@ pbp_overall <-
     pbp_2016,
     pbp_2017,
     pbp_2018,
-    pbp_2019
+    pbp_2019,
+    pbp_2020
   )

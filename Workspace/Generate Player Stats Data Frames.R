@@ -1,6 +1,7 @@
 #
 # create player stats data frames
 #
+playerstats_2020 <- season_player_game(2020)
 playerstats_2019 <- season_player_game(2019)
 playerstats_2018 <- season_player_game(2018)
 playerstats_2017 <- season_player_game(2017)
@@ -29,5 +30,6 @@ playerstats_overall <-
     playerstats_2016,
     playerstats_2017,
     playerstats_2018,
-    playerstats_2019
+    playerstats_2019,
+    playerstats_2020
   )

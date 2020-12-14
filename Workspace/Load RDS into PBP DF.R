@@ -1,6 +1,7 @@
 #
 # load local .rds files into pbp data frames
 #
+pbp_2020 <- readRDS("Data/pbp_2020.rds")
 pbp_2019 <- readRDS("Data/pbp_2019.rds")
 pbp_2018 <- readRDS("Data/pbp_2018.rds")
 pbp_2017 <- readRDS("Data/pbp_2017.rds")
@@ -47,5 +48,6 @@ pbp_overall <-
     pbp_2016,
     pbp_2017,
     pbp_2018,
-    pbp_2019
+    pbp_2019,
+    pbp_2020
   )
